@@ -135,8 +135,8 @@ export default function Navbar() {
           <Image 
             src="/logo.jpg" 
             alt="Think India Bihar Logo" 
-            width={50} 
-            height={50} 
+            width={56} 
+            height={56} 
             className={styles.brandLogo} 
             priority
           />

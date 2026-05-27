@@ -36,8 +36,8 @@ export default function Footer({ isInstitutePage = false, instituteName = "" }) 
               <Image
                 src="/logo.jpg"
                 alt="Think India Bihar Logo"
-                width={42}
-                height={42}
+                width={48}
+                height={48}
                 className={styles.brandLogo}
               />
               <span className={styles.brandTitle}>{brandName}</span>

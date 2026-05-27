@@ -9,6 +9,15 @@ import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./HomeClient.module.css";
 
+const INSTITUTE_IMAGES = {
+  "nit-patna": "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=800&auto=format&fit=crop",
+  "iit-patna": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop",
+  "iim-bodhgaya": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
+  "cnlu-patna": "https://images.unsplash.com/photo-1498243691219-0f41f5911f75?q=80&w=800&auto=format&fit=crop",
+  "iiit-bhagalpur": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop",
+  "nift-patna": "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop",
+};
+
 export default function HomeClient({ institutes, events, gallery, usingMockData }) {
   const heroRef = useRef(null);
   const titleRef = useRef(null);
@@ -424,27 +433,37 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
         </div>
 
         <div ref={gridRef} className={styles.grid}>
-          {institutes.map((inst) => (
-            <Link key={inst.id} href={`/institute/${inst.slug}`}>
-              <div className={`${styles.card} institute-card`}>
-                <div className={styles.cardContent}>
-                  <div className={styles.cardIcon}>
-                    <Building2 size={24} />
+          {institutes.map((inst) => {
+            const imageUrl = inst.image_url || INSTITUTE_IMAGES[inst.slug] || "/hero_bg.png";
+            return (
+              <Link key={inst.id} href={`/institute/${inst.slug}`}>
+                <div className={`${styles.card} institute-card`}>
+                  <div className={styles.cardImageContainer}>
+                    <SkeletonImage
+                      src={imageUrl}
+                      alt={`${inst.name} Campus`}
+                      style={{ height: "100%", width: "100%" }}
+                    />
                   </div>
-                  <h3 className={styles.cardTitle}>{inst.name}</h3>
-                  <p className={styles.cardText}>
-                    {inst.about_text
-                      ? inst.about_text.substring(0, 140) + (inst.about_text.length > 140 ? "..." : "")
-                      : "Learn about the student leadership, research publications, and dynamic national events run by this institute."}
-                  </p>
+                  <div className={styles.cardInfo}>
+                    <div className={styles.cardIcon}>
+                      <Building2 size={20} />
+                    </div>
+                    <h3 className={styles.cardTitle}>{inst.name}</h3>
+                    <p className={styles.cardText}>
+                      {inst.about_text
+                        ? inst.about_text.substring(0, 110) + (inst.about_text.length > 110 ? "..." : "")
+                        : "Learn about the student leadership, research publications, and dynamic national events run by this institute."}
+                    </p>
+                  </div>
+                  <div className={styles.cardFooter}>
+                    <span>Explore Institute</span>
+                    <ExternalLink size={14} />
+                  </div>
                 </div>
-                <div className={styles.cardFooter}>
-                  <span>Explore Institute</span>
-                  <ExternalLink size={14} />
-                </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            );
+          })}
         </div>
       </section>      {/* Consolidated Events Section */}
       <section id="events" ref={eventsSectionRef} className={styles.eventsSection} style={{ opacity: 1 /* GSAP animated */ }}>

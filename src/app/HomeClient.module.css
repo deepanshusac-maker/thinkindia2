@@ -326,19 +326,18 @@
 /* Interactive Card styling */
 .card {
   position: relative;
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(10, 25, 49, 0.05);
+  background: #FFFFFF;
+  border: 1px solid rgba(10, 25, 49, 0.06);
   border-radius: var(--radius-lg);
-  padding: 2.5rem 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 220px;
+  min-height: 380px; /* Increased min-height to accommodate image */
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   overflow: hidden;
+  padding: 0; /* Zero padding to allow full bleed image at top */
 }
 
 /* Saffron top accent bar */
@@ -352,11 +351,11 @@
   background: var(--gradient-accent);
   opacity: 0;
   transition: opacity 0.3s ease;
+  z-index: 5;
 }
 
 .card:hover {
   transform: translateY(-8px);
-  background: #FFF;
   border-color: rgba(255, 107, 53, 0.2);
   box-shadow: var(--shadow-lg);
 }
@@ -365,7 +364,27 @@
   opacity: 1;
 }
 
-.cardContent {
+.cardImageContainer {
+  width: 100%;
+  height: 160px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(10, 25, 49, 0.06);
+  background-color: rgba(10, 25, 49, 0.02);
+}
+
+.cardImageContainer img {
+  transition: transform 0.5s ease !important;
+}
+
+.card:hover .cardImageContainer img {
+  transform: scale(1.06) !important;
+}
+
+.cardInfo {
+  padding: 1.5rem 1.75rem 0;
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 }
 
@@ -373,13 +392,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border-radius: var(--radius-md);
   background-color: rgba(10, 25, 49, 0.03);
   color: var(--color-navy);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   transition: all 0.3s ease;
+  align-self: flex-start;
 }
 
 .card:hover .cardIcon {
@@ -388,18 +408,18 @@
 }
 
 .cardTitle {
-  font-size: 1.35rem;
-  font-weight: var(--font-semibold);
+  font-size: 1.25rem;
+  font-weight: 700;
   color: var(--color-navy);
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .cardText {
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
   font-weight: var(--font-normal);
   color: var(--color-text-muted);
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .cardFooter {
@@ -410,6 +430,7 @@
   font-weight: var(--font-semibold);
   color: var(--color-saffron);
   transition: gap 0.2s ease;
+  padding: 0 1.75rem 1.75rem;
 }
 
 .card:hover .cardFooter {
