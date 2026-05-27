@@ -60,28 +60,9 @@
   transform: scale(1.02);
 }
 
-.brandIcon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
+.brandLogo {
   border-radius: var(--radius-sm);
-  background: var(--gradient-accent);
-  color: #fff;
-  font-size: 0.9rem;
-  font-weight: var(--font-bold);
-  letter-spacing: normal;
-}
-
-.brandText {
-  font-family: var(--font-sans);
-  font-weight: var(--font-bold);
-}
-
-.brandHighlight {
-  color: var(--color-saffron);
-  font-weight: var(--font-medium);
+  object-fit: contain;
 }
 
 /* --- Desktop navigation area --- */

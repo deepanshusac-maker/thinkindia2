@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Menu, X } from "lucide-react";
 import styles from "./Navbar.module.css";
@@ -131,11 +132,14 @@ export default function Navbar() {
       <div className={styles.header}>
         {/* Brand */}
         <Link href="/" className={styles.brand} onClick={closeMobile}>
-          <span className={styles.brandIcon}>TI</span>
-          <span className={styles.brandText}>
-            Think India{" "}
-            <span className={styles.brandHighlight}>Bihar</span>
-          </span>
+          <Image 
+            src="/logo.jpg" 
+            alt="Think India Bihar Logo" 
+            width={50} 
+            height={50} 
+            className={styles.brandLogo} 
+            priority
+          />
         </Link>
 
         {/* Desktop links */}
