@@ -116,18 +116,18 @@ button {
    ============================================================= */
 
 .modern-heritage {
-  --color-bg:         #0D0D0D; /* Near Black background */
-  --color-surface:    #1A1A1A; /* Dark Surface Cards */
-  --color-border:     rgba(255, 255, 255, 0.08); /* Dark mode borders */
-  --color-text:       #F5F5F7; /* Bright Light Text */
-  --color-text-muted: rgba(255, 255, 255, 0.6); /* Muted Light Text */
-  --color-saffron:    #F97316; /* Nationalist Saffron */
-  --color-saffron-2:  #EA580C; /* Deep Saffron Accent */
-  --color-green:      #22C55E; /* Nationalist Green */
-  --color-navy:       #3B82F6; /* Ashoka Chakra Blue */
+  --color-bg:         #FFFFFF; /* Pure White Background */
+  --color-surface:    #FFFFFF; /* White Cards */
+  --color-border:     rgba(15, 23, 42, 0.08); /* Ultra-thin light slate borders */
+  --color-text:       #0F172A; /* Deep Slate/Charcoal text */
+  --color-text-muted: #475569; /* Slate grey body copy */
+  --color-saffron:    #F97316; /* Nationalist Saffron brand color */
+  --color-saffron-2:  #EA580C; /* Deep saffron brand accent */
+  --color-green:      #10B981; /* High-end Emerald Green success badge */
+  --color-navy:       #1E3A8A; /* Ashoka Chakra Blue */
   --gradient-accent:  linear-gradient(135deg, #F97316 0%, #EA580C 100%);
 
-  background: radial-gradient(circle at top, rgba(249, 115, 22, 0.05) 0%, #0D0D0D 100%);
+  background: radial-gradient(circle at top center, rgba(249, 115, 22, 0.03) 0%, #FFFFFF 100%);
   color: var(--color-text);
   min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -138,7 +138,7 @@ button {
 .modern-heritage h2,
 .modern-heritage h3,
 .modern-heritage h4 {
-  color: #FFFFFF; /* High contrast headings on dark */
+  color: #0F172A; /* Rich deep slate headings */
   font-family: var(--font-sans);
   letter-spacing: -0.01em;
 }
