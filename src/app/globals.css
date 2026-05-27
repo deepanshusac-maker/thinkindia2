@@ -1,0 +1,252 @@
+/* ==========================================
+   Think India Bihar — Global Design System
+   ========================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* --- Color Palette --- */
+  --color-bg:         #08080f;
+  --color-surface:    #11111a;
+  --color-border:     rgba(255, 255, 255, 0.06);
+
+  --color-text:       #f0f0f0;
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+
+  --color-saffron:    #FF9933;  /* Indian Flag Saffron */
+  --color-saffron-2:  #FF8C1A;  /* Deep Saffron */
+  --color-green:      #138808;  /* Indian Flag Green */
+  --color-navy:       #0A1931;  /* Deep Navy (Ashoka Chakra Blue) */
+  --color-white:      #FFFFFF;  /* Indian Flag White */
+
+  --gradient-accent:  linear-gradient(135deg, #FF9933 0%, #FF8C1A 100%);
+  --gradient-tricolor: linear-gradient(180deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+
+  /* --- Typography --- */
+  --font-sans: var(--font-outfit), 'Outfit', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, monospace;
+
+  /* --- Font Weights (strict hierarchy) --- */
+  --font-normal:   400;  /* Body text, paragraphs */
+  --font-medium:   500;  /* Emphasis, nav links, labels */
+  --font-semibold: 600;  /* Card titles, subheadings */
+  --font-bold:     700;  /* Section titles, CTAs */
+  --font-black:    800;  /* Hero headline ONLY */
+
+  /* --- Spacing --- */
+  --space-xs:  0.25rem;
+  --space-sm:  0.5rem;
+  --space-md:  1rem;
+  --space-lg:  1.5rem;
+  --space-xl:  2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+
+  /* --- Section Padding --- */
+  --section-py: clamp(3.5rem, 6vw, 6.5rem);
+  --section-px: clamp(1.5rem, 5vw, 4rem);
+
+  /* --- Radii --- */
+  --radius-sm:   6px;
+  --radius-md:   10px;
+  --radius-lg:   14px;
+  --radius-xl:   20px;
+  --radius-full: 9999px;
+
+  /* --- Shadows (layered for realism) --- */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 1px 3px rgba(0,0,0,0.04), 0 4px 12px rgba(0,0,0,0.03);
+  --shadow-lg: 0 2px 4px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  --shadow-xl: 0 4px 8px rgba(0,0,0,0.04), 0 16px 40px rgba(0,0,0,0.08);
+
+  /* --- Transitions --- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: var(--font-normal);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---- Utility: Visually Hidden ---- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* =============================================================
+   Modern Heritage Theme & Public Utilities
+   ============================================================= */
+
+.modern-heritage {
+  --color-bg:         #F9F6F0; /* Pearl Background */
+  --color-surface:    #FFFFFF; /* White Cards */
+  --color-border:     rgba(10, 25, 49, 0.08); /* Light Navy Border */
+  --color-text:       #0A1931; /* Deep Navy Text */
+  --color-text-muted: rgba(10, 25, 49, 0.55); /* Muted Navy Text */
+  --color-saffron:    #FF9933; /* Indian Flag Saffron */
+  --color-saffron-2:  #FF8C1A; /* Deep Saffron */
+  --color-green:      #138808; /* Indian Flag Green */
+  --color-navy:       #000080; /* Ashoka Chakra Navy Blue */
+  --gradient-accent:  linear-gradient(135deg, #FF9933 0%, #FF8C1A 100%);
+
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100vh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Heading hierarchy in heritage theme */
+.modern-heritage h1,
+.modern-heritage h2,
+.modern-heritage h3,
+.modern-heritage h4 {
+  color: var(--color-navy);
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+}
+
+/* ---- Skeleton Pulse Animation ---- */
+.skeleton-pulse {
+  background: linear-gradient(
+    90deg,
+    #e8e5dd 25%,
+    #f2eee4 50%,
+    #e8e5dd 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading-pulse 1.5s infinite;
+}
+
+@keyframes skeleton-loading-pulse {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ---- Masonry Grid (CSS columns) ---- */
+.masonry-grid {
+  column-count: 1;
+  column-gap: 1.5rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .masonry-grid {
+    column-count: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry-grid {
+    column-count: 3;
+  }
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  width: 100%;
+}
+
+/* =============================================================
+   Lenis Smooth Scroll Standard Rules
+   ============================================================= */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* =============================================================
+   Navy Page Transition Overlay
+   ============================================================= */
+
+.transition-overlay {
+  position: fixed;
+  top: 0;
+  left: -100vw; /* Positioned offscreen left */
+  width: 100vw;
+  height: 100vh;
+  background-color: #0A1931; /* Deep Navy Blue */
+  z-index: 99999;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =============================================================
+   Accessibility: Reduced Motion
+   ============================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

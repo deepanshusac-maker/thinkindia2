@@ -1,0 +1,24 @@
+/**
+ * Supabase Auth callback handler.
+ * Handles the code exchange after OAuth or magic link authentication.
+ */
+import { NextResponse } from "next/server";
+import { createClient } from "@/lib/supabase/server";
+
+export async function GET(request) {
+  const { searchParams, origin } = new URL(request.url);
+  const code = searchParams.get("code");
+  const next = searchParams.get("next") ?? "/admin";
+
+  if (code) {
+    const supabase = await createClient();
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+
+    if (!error) {
+      return NextResponse.redirect(`${origin}${next}`);
+    }
+  }
+
+  // If something went wrong, redirect to login with an error
+  return NextResponse.redirect(`${origin}/admin/login?error=auth_failed`);
+}

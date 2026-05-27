@@ -1,0 +1,280 @@
+/* ==============================================
+   Navbar.module.css — Think India Bihar
+   ============================================== */
+
+/* --- Navbar wrapper (includes progress bar + header) --- */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.navHidden {
+  transform: translateY(-100%);
+}
+
+/* --- Scroll progress bar --- */
+.progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--gradient-accent);
+  z-index: 2;
+  transition: width 0.05s linear;
+  pointer-events: none;
+}
+
+/* --- Inner header row --- */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 70px;
+  padding: 0 2rem;
+  background-color: rgba(249, 246, 240, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-border);
+  border-top: 4px solid transparent;
+  border-image: linear-gradient(90deg, var(--color-saffron) 0%, var(--color-saffron) 33.3%, var(--color-white) 33.3%, var(--color-white) 66.6%, var(--color-green) 66.6%) 1;
+}
+
+/* --- Brand logo --- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: var(--font-bold);
+  font-size: 1.25rem;
+  color: var(--color-navy);
+  letter-spacing: -0.02em;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.brand:hover {
+  transform: scale(1.02);
+}
+
+.brandIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--gradient-accent);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: var(--font-bold);
+  letter-spacing: normal;
+}
+
+.brandText {
+  font-family: var(--font-sans);
+  font-weight: var(--font-bold);
+}
+
+.brandHighlight {
+  color: var(--color-saffron);
+  font-weight: var(--font-medium);
+}
+
+/* --- Desktop navigation area --- */
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* --- Nav link (shared desktop + mobile base) --- */
+.navLink {
+  position: relative;
+  font-size: 0.9375rem;
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  opacity: 0.85;
+  transition: color 0.2s ease, opacity 0.2s ease;
+  padding-bottom: 2px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 2px;
+  background: var(--color-saffron);
+  border-radius: var(--radius-full);
+  transition: width 0.25s var(--ease-out);
+}
+
+.navLink:hover {
+  color: var(--color-saffron);
+  opacity: 1;
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+/* Active section link */
+.navLinkActive {
+  color: var(--color-saffron);
+  opacity: 1;
+}
+
+.navLinkActive::after {
+  width: 100%;
+}
+
+/* --- Admin button --- */
+.adminBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  background-color: rgba(10, 25, 49, 0.05);
+  border: 1px solid rgba(10, 25, 49, 0.1);
+  color: var(--color-navy);
+  font-size: 0.875rem;
+  font-weight: var(--font-semibold);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.adminBtn:hover {
+  background-color: var(--color-navy);
+  color: #ffffff;
+}
+
+/* --- Hamburger button --- */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  gap: 5px;
+  z-index: 10;
+}
+
+.hamburgerBar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: var(--color-navy);
+  border-radius: var(--radius-full);
+  transition: transform 0.3s var(--ease-out), opacity 0.2s ease;
+  transform-origin: center;
+}
+
+/* Hamburger → X animation */
+.hamburgerOpen .hamburgerBar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.hamburgerOpen .hamburgerBar:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburgerOpen .hamburgerBar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* --- Mobile drawer --- */
+.mobileMenu {
+  display: none;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+  background-color: rgba(249, 246, 240, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 2rem 1.5rem;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.4s var(--ease-out), opacity 0.3s ease, padding 0.4s var(--ease-out);
+}
+
+.mobileMenuOpen {
+  max-height: 400px;
+  opacity: 1;
+  padding: 1rem 2rem 1.5rem;
+}
+
+.mobileNavLink {
+  display: block;
+  font-size: 1rem;
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--color-border);
+  transition: color 0.2s ease;
+}
+
+.mobileNavLink:hover {
+  color: var(--color-saffron);
+}
+
+.mobileNavLinkActive {
+  color: var(--color-saffron);
+}
+
+.mobileAdminBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-navy);
+  color: #ffffff;
+  font-size: 0.9375rem;
+  font-weight: var(--font-semibold);
+  transition: background-color 0.2s ease;
+  text-align: center;
+  border: none;
+}
+
+.mobileAdminBtn:hover {
+  background-color: var(--color-saffron);
+}
+
+/* ==============================================
+   Responsive: Mobile (< 768px)
+   ============================================== */
+@media (max-width: 767px) {
+  .header {
+    padding: 0 1.25rem;
+  }
+
+  .desktopNav {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .mobileMenu {
+    display: flex;
+  }
+}
