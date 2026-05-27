@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake } from "lucide-react";
+import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock } from "lucide-react";
 import { FaXTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa6';
 import Navbar from "@/app/components/Navbar";
 import SkeletonImage from "@/app/components/SkeletonImage";
@@ -19,10 +19,79 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
   const eventsSectionRef = useRef(null);
   const gallerySectionRef = useRef(null);
 
-  // Filter events to only show upcoming ones, capped at 4 for a clean homepage grid
+  // Modal Dialog states and refs
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const dialogRef = useRef(null);
+
+  const openEventModal = (event) => {
+    setSelectedEvent(event);
+  };
+
+  const closeEventModal = () => {
+    setSelectedEvent(null);
+  };
+
+  // Safe fallback click listener to trigger modal close when clicking backdrop (Safari fallback)
+  const handleDialogClick = (event) => {
+    const dialogElem = dialogRef.current;
+    if (!dialogElem || event.target !== dialogElem) return;
+
+    const rect = dialogElem.getBoundingClientRect();
+    const isDialogContent = (
+      rect.top <= event.clientY &&
+      event.clientY <= rect.top + rect.height &&
+      rect.left <= event.clientX &&
+      event.clientX <= rect.left + rect.width
+    );
+
+    if (!isDialogContent) {
+      setSelectedEvent(null);
+    }
+  };
+
+  // Double trigger native dialog showModal/close
+  useEffect(() => {
+    const dialogElem = dialogRef.current;
+    if (!dialogElem) return;
+
+    if (selectedEvent) {
+      if (!dialogElem.open) {
+        dialogElem.showModal();
+        document.body.style.overflow = "hidden";
+      }
+    } else {
+      if (dialogElem.open) {
+        dialogElem.close();
+        document.body.style.overflow = "";
+      }
+    }
+  }, [selectedEvent]);
+
+  // Synchronize canceling dialog (native Esc press)
+  useEffect(() => {
+    const dialogElem = dialogRef.current;
+    if (!dialogElem) return;
+
+    const handleCancel = (e) => {
+      setSelectedEvent(null);
+    };
+
+    dialogElem.addEventListener("cancel", handleCancel);
+    return () => {
+      dialogElem.removeEventListener("cancel", handleCancel);
+    };
+  }, []);
+
+  // Filter events into upcoming and past
   const upcomingEvents = events
-    .filter((e) => e.metadata?.isUpcoming || e.metadata?.status === "upcoming" || new Date(e.metadata?.date || "") > new Date())
-    .slice(0, 4);
+    .filter((e) => e.metadata?.isUpcoming || e.metadata?.status === "upcoming" || (e.metadata?.date && new Date(e.metadata.date) > new Date()))
+    .sort((a, b) => new Date(a.metadata?.date || 0) - new Date(b.metadata?.date || 0))
+    .slice(0, 3);
+
+  const pastEvents = events
+    .filter((e) => !upcomingEvents.some((ue) => ue.id === e.id))
+    .sort((a, b) => new Date(b.metadata?.date || 0) - new Date(a.metadata?.date || 0))
+    .slice(0, 3);
 
   // Date formatter
   const formatDate = (dateStr) => {
@@ -38,6 +107,66 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
     } catch {
       return dateStr;
     }
+  };
+
+  // Shared responsive horizontal event card component
+  const renderEventCard = (evt, isPast = false) => {
+    const eventImages = evt.metadata?.images || (evt.image_url ? [evt.image_url] : []);
+    const coverImage = eventImages[0];
+
+    return (
+      <div key={evt.id} className={`${styles.eventCard} event-card`}>
+        {coverImage ? (
+          <div className={styles.eventImageContainer}>
+            <SkeletonImage
+              src={getAssetUrl(coverImage)}
+              alt={evt.title}
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+            {isPast ? (
+              <span className={`${styles.statusBadge} ${styles.pastBadge}`}>Completed</span>
+            ) : (
+              <span className={`${styles.statusBadge} ${styles.upcomingBadge}`}>Upcoming</span>
+            )}
+          </div>
+        ) : (
+          <div className={`${styles.eventImageContainer} ${styles.noImage}`}>
+            <ImageIcon size={32} style={{ opacity: 0.3, color: "var(--color-navy)" }} />
+            {isPast ? (
+              <span className={`${styles.statusBadge} ${styles.pastBadge}`}>Completed</span>
+            ) : (
+              <span className={`${styles.statusBadge} ${styles.upcomingBadge}`}>Upcoming</span>
+            )}
+          </div>
+        )}
+        <div className={styles.eventTextContainer}>
+          <div className={styles.eventCardHeader}>
+            <span className={styles.instituteTag}>
+              {evt.institutes?.name || "State Council"}
+            </span>
+            <span className={styles.eventDateTag}>
+              <Calendar size={13} style={{ marginRight: "4px", verticalAlign: "middle" }} />
+              {formatDate(evt.metadata?.date)}
+            </span>
+          </div>
+          <h3 className={styles.eventCardTitle}>{evt.title}</h3>
+          {evt.metadata?.description && (
+            <p className={styles.eventCardDesc}>
+              {evt.metadata.description.length > 140
+                ? evt.metadata.description.substring(0, 140) + "..."
+                : evt.metadata.description}
+            </p>
+          )}
+          <button
+            onClick={() => openEventModal(evt)}
+            className={styles.knowMoreBtn}
+            aria-label={`Know more about ${evt.title}`}
+          >
+            Know More <ArrowRight size={14} />
+          </button>
+        </div>
+      </div>
+    );
   };
 
   // Split word helper for GSAP staggered animation
@@ -283,79 +412,161 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
             </Link>
           ))}
         </div>
-      </section>
-
-      {/* Upcoming Events Section (Consolidated from all institutes) */}
-      <section id="events" ref={eventsSectionRef} className={styles.eventsSection} style={{ opacity: 1 /* Animates via GSAP */ }}>
+      </section>      {/* Consolidated Events Section */}
+      <section id="events" ref={eventsSectionRef} className={styles.eventsSection} style={{ opacity: 1 /* GSAP animated */ }}>
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>
-            Upcoming Events<span className={styles.sectionTitleDot}>.</span>
+            Events Forum<span className={styles.sectionTitleDot}>.</span>
           </h2>
           <p className={styles.sectionSubtitle}>
-            Join our forum activities, policy workshops, and legal awareness campaigns scheduled across various institutes.
+            Explore our scheduled activities, policy conclaves, and past milestones conducted across premium chapters.
           </p>
         </div>
 
-        {upcomingEvents.length === 0 ? (
-          <p className={styles.emptyState} style={{ maxWidth: "600px", margin: "0 auto" }}>
-            No upcoming events scheduled at the moment. Check back soon!
-          </p>
-        ) : (
-          <div className={styles.eventsGrid}>
-            {upcomingEvents.map((evt) => {
-              const eventImages = evt.metadata?.images || (evt.image_url ? [evt.image_url] : []);
-              const hasMultipleImages = eventImages.length > 1;
+        <div className={styles.eventsContainer}>
+          {/* Upcoming Events Column / Stack */}
+          <div className={styles.eventsGroup}>
+            <h3 className={styles.groupHeading}>
+              <span className={styles.groupIndicatorSaffron} />
+              Upcoming Events
+            </h3>
+            {upcomingEvents.length === 0 ? (
+              <p className={styles.emptyState}>
+                No upcoming events scheduled. Check back soon!
+              </p>
+            ) : (
+              <div className={styles.eventsStackList}>
+                {upcomingEvents.map((evt) => renderEventCard(evt, false))}
+              </div>
+            )}
+          </div>
 
-              return (
-                <div
-                  key={evt.id}
-                  className={`${styles.eventCard} event-card`}
-                  style={{ padding: eventImages.length > 0 ? "0" : "2rem", overflow: "hidden" }}
-                >
-                  {hasMultipleImages ? (
-                    <div className={styles.eventImageTrack}>
-                      {eventImages.map((imgUrl, i) => (
-                        <div key={i} className={styles.eventTrackImageFrame}>
-                          <SkeletonImage
-                            src={getAssetUrl(imgUrl)}
-                            alt={evt.title}
-                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  ) : eventImages.length === 1 ? (
-                    <div className={styles.eventImageFrame}>
-                      <SkeletonImage
-                        src={getAssetUrl(eventImages[0])}
-                        alt={evt.title}
-                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                      />
-                    </div>
-                  ) : null}
-                  <div
-                    className={styles.eventCardBody}
-                    style={{ padding: eventImages.length > 0 ? "1.5rem 2rem 2rem" : "0" }}
-                  >
-                    <div className={styles.eventHeader}>
-                      <span className={styles.instituteTag}>
-                        {evt.institutes?.name || "State Council"}
-                      </span>
-                      <span className={styles.eventTag}>
-                        <Calendar size={12} style={{ marginRight: "4px", verticalAlign: "middle" }} />
-                        {formatDate(evt.metadata?.date)}
-                      </span>
-                    </div>
-                    <h3 className={styles.eventTitle}>{evt.title}</h3>
-                    {evt.metadata?.description && (
-                      <p className={styles.eventDesc}>{evt.metadata.description}</p>
-                    )}
+          {/* Past Events Column / Stack */}
+          <div className={styles.eventsGroup} style={{ marginTop: "3.5rem" }}>
+            <h3 className={styles.groupHeading}>
+              <span className={styles.groupIndicatorNavy} />
+              Recent Highlights
+            </h3>
+            {pastEvents.length === 0 ? (
+              <p className={styles.emptyState}>
+                No past highlights recorded.
+              </p>
+            ) : (
+              <div className={styles.eventsStackList}>
+                {pastEvents.map((evt) => renderEventCard(evt, true))}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Premium Detail Modal Dialog */}
+        <dialog
+          ref={dialogRef}
+          className={styles.dialog}
+          closedby="any"
+          aria-labelledby="dialog-title"
+          onClose={closeEventModal}
+          onClick={handleDialogClick}
+        >
+          {selectedEvent && (
+            <div className={styles.modalContent}>
+              <button
+                onClick={closeEventModal}
+                className={styles.dialogCloseBtn}
+                aria-label="Close details"
+              >
+                <X size={18} />
+              </button>
+
+              {/* Modal Image Header */}
+              {selectedEvent.metadata?.images && selectedEvent.metadata.images.length > 0 ? (
+                <div className={styles.modalGallery}>
+                  <div className={styles.modalGalleryTrack}>
+                    {selectedEvent.metadata.images.map((imgUrl, i) => (
+                      <div key={i} className={styles.modalGalleryImageFrame}>
+                        <SkeletonImage
+                          src={getAssetUrl(imgUrl)}
+                          alt={selectedEvent.title}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
+                      </div>
+                    ))}
                   </div>
                 </div>
-              );
-            })}
-          </div>
-        )}
+              ) : selectedEvent.image_url ? (
+                <div className={styles.modalHeroImage}>
+                  <SkeletonImage
+                    src={getAssetUrl(selectedEvent.image_url)}
+                    alt={selectedEvent.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
+              ) : (
+                <div className={styles.modalNoImage}>
+                  <ImageIcon size={48} style={{ opacity: 0.2, color: "var(--color-navy)" }} />
+                </div>
+              )}
+
+              {/* Modal Body */}
+              <div className={styles.modalBody}>
+                <div className={styles.modalHeaderRow}>
+                  <span className={styles.modalInstituteTag}>
+                    {selectedEvent.institutes?.name || "State Council"}
+                  </span>
+                  <span className={`${styles.statusBadge} ${
+                    selectedEvent.metadata?.isUpcoming || selectedEvent.metadata?.status === "upcoming" || (selectedEvent.metadata?.date && new Date(selectedEvent.metadata.date) > new Date())
+                      ? styles.upcomingBadge
+                      : styles.pastBadge
+                  }`}>
+                    {selectedEvent.metadata?.isUpcoming || selectedEvent.metadata?.status === "upcoming" || (selectedEvent.metadata?.date && new Date(selectedEvent.metadata.date) > new Date())
+                      ? "Upcoming"
+                      : "Completed"}
+                  </span>
+                </div>
+
+                <h2 id="dialog-title" className={styles.modalTitle}>
+                  {selectedEvent.title}
+                </h2>
+
+                {/* Meta information: Date, Time, Venue */}
+                <div className={styles.modalMetaGrid}>
+                  <div className={styles.modalMetaItem}>
+                    <Calendar size={16} className={styles.metaIconSaffron} />
+                    <div>
+                      <strong>Date</strong>
+                      <span>{formatDate(selectedEvent.metadata?.date)}</span>
+                    </div>
+                  </div>
+
+                  {selectedEvent.metadata?.time && (
+                    <div className={styles.modalMetaItem}>
+                      <Clock size={16} className={styles.metaIconSaffron} />
+                      <div>
+                        <strong>Time</strong>
+                        <span>{selectedEvent.metadata.time}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className={styles.modalMetaItem}>
+                    <MapPin size={16} className={styles.metaIconGreen} />
+                    <div>
+                      <strong>Venue / Location</strong>
+                      <span>{selectedEvent.metadata?.venue || selectedEvent.metadata?.location || "TBD"}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <hr className={styles.modalDivider} />
+
+                <div className={styles.modalDescription}>
+                  <h3>About this Event</h3>
+                  <p>{selectedEvent.metadata?.description || "No description provided for this event."}</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </dialog>
       </section>
 
       {/* Gallery Highlights Section (Consolidated from all institutes) */}
