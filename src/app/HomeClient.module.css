@@ -15,31 +15,57 @@
   display: none;
 }
 
-/* ---- Hero Section ---- */
+/* ---- Nationalist Redesigned Hero Section ---- */
 .hero {
   position: relative;
-  min-height: 90vh;
+  min-height: 95vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem var(--section-px) var(--section-py);
+  padding: 6rem var(--section-px) var(--section-py);
   overflow: hidden;
-  background-color: var(--color-bg);
+  /* Glowing nationalist gradient background */
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a0a00 100%);
   width: 100%;
 }
 
 @media (max-width: 768px) {
   .hero {
-    min-height: 80vh;
-    padding-top: 4rem;
+    min-height: auto;
+    padding-top: 5rem;
     padding-bottom: 4rem;
   }
+}
+
+.tricolourStripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, #F97316 0%, #F97316 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #22C55E 66.6%, #22C55E 100%);
+  z-index: 20;
+}
+
+.heroBadge {
+  display: inline-block;
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #F97316;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.05);
 }
 
 .heroContent {
   position: relative;
   text-align: center;
-  max-width: 800px;
+  max-width: 850px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -57,8 +83,8 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  /* Premium radial dark overlay to ensure maximum saffron and white text readability */
-  background: radial-gradient(circle at center, rgba(10, 25, 49, 0.7) 0%, rgba(8, 8, 15, 0.92) 100%);
+  /* Dark overlay at ~50% opacity to ensure high readability */
+  background: rgba(13, 13, 13, 0.55);
 }
 
 /* Fallback alert banner */
@@ -80,24 +106,32 @@
 .logoRevealContainer {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 1.5rem;
-}
-
-@media (max-width: 768px) {
-  .logoRevealContainer {
-    align-items: center;
-  }
+  width: 100%;
 }
 
 .heroTitle {
-  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
   color: #ffffff;
   margin-bottom: 0.75rem;
   letter-spacing: -0.03em;
-  perspective: 1000px; /* For 3D text rotation reveal */
+  perspective: 1000px;
+}
+
+/* Tricolour Word Highlights */
+.titleLineWhite {
+  color: #FFFFFF;
+}
+
+.titleLineSaffron {
+  color: #F97316;
+}
+
+.titleLineGreen {
+  color: #22C55E;
 }
 
 .brandWord {
@@ -111,20 +145,11 @@
   transform-origin: bottom center;
 }
 
-.slogan {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-weight: 800;
-  color: var(--color-saffron);
-  letter-spacing: 0.06em;
-  margin-top: 0.5rem;
-  opacity: 0; /* Animated */
-}
-
 .heroSubtitle {
   font-size: clamp(1rem, 2vw, 1.125rem);
   font-weight: var(--font-normal);
-  color: rgba(255, 255, 255, 0.75);
-  max-width: 620px;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 660px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;
   opacity: 0; /* Animated */
@@ -139,31 +164,27 @@
   opacity: 0; /* Animated */
 }
 
-@media (max-width: 768px) {
-  .heroCta {
-    justify-content: center;
-  }
-}
-
 .btnPrimary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.9rem 2rem;
   border-radius: var(--radius-md);
-  background: var(--gradient-accent);
-  color: #fff;
-  font-weight: 700;
+  background: #F97316;
+  color: #0D0D0D;
+  font-weight: 800;
   font-size: 0.9375rem;
-  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.25);
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s ease;
+  box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+  transition: transform 0.2s var(--ease-out), background-color 0.2s ease, box-shadow 0.2s ease;
   border: none;
   cursor: pointer;
 }
 
 .btnPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 153, 51, 0.35);
+  background: #EA580C;
+  color: #FFFFFF;
+  box-shadow: 0 8px 25px rgba(249, 115, 22, 0.45);
 }
 
 .btnSecondary {
@@ -172,22 +193,135 @@
   gap: 0.5rem;
   padding: 0.9rem 2rem;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: transparent;
+  border: 1.5px solid #ffffff;
   color: #ffffff;
   font-weight: 700;
   font-size: 0.9375rem;
   transition: all 0.2s var(--ease-out);
   cursor: pointer;
-  backdrop-filter: blur(4px);
 }
 
 .btnSecondary:hover {
   background: #ffffff;
-  color: var(--color-navy);
-  border-color: #ffffff;
+  color: #0D0D0D;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.20);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.2);
+}
+
+/* Stats Row styling */
+.statsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 4rem;
+  width: 100%;
+  opacity: 0; /* Animated alongside CTAs or handled in transitions */
+  animation: modalFadeIn 0.8s var(--ease-out) forwards;
+  animation-delay: 0.5s;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.statNumber {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.statLabel {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #F97316;
+}
+
+.statDivider {
+  width: 1px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Ashoka Chakra Container */
+.chakraContainer {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  height: 320px;
+  opacity: 0.65;
+  z-index: 3;
+  pointer-events: none;
+  display: none; /* Mobile first hidden */
+}
+
+.ashokaChakra {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  animation: chakraSpin 20s linear infinite;
+}
+
+@keyframes chakraSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Desktop layout re-balancing */
+@media (min-width: 1024px) {
+  .chakraContainer {
+    display: block;
+  }
+  .heroContent {
+    text-align: left;
+    align-items: flex-start;
+    max-width: 600px;
+    margin-left: 0;
+    margin-right: auto;
+  }
+  .logoRevealContainer {
+    align-items: flex-start;
+  }
+  .heroSubtitle {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .heroCta {
+    justify-content: flex-start;
+  }
+  .statsRow {
+    justify-content: flex-start;
+  }
+  .statItem {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .statsRow {
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .statDivider {
+    display: none;
+  }
+  .statItem {
+    flex: 0 0 calc(50% - 1rem);
+  }
 }
 
 

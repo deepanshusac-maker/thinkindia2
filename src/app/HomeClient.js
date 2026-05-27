@@ -282,6 +282,8 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
       {/* Hero Section */}
       <section ref={heroRef} className={styles.hero}>
+        <div className={styles.tricolourStripe} />
+        
         <div className={styles.heroContent}>
           {usingMockData && (
             <div className={styles.fallbackBanner}>
@@ -290,9 +292,13 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
             </div>
           )}
 
+          <div className={styles.heroBadge}>Nation First, Always</div>
+
           <div className={styles.logoRevealContainer}>
             <h1 ref={titleRef} className={styles.heroTitle}>
-              {renderLetters("Think")} {renderLetters("India")} {renderLetters("Bihar")}
+              <span className={styles.titleLineWhite}>{renderLetters("Think")}</span>{" "}
+              <span className={styles.titleLineSaffron}>{renderLetters("India")}</span>{" "}
+              <span className={styles.titleLineGreen}>{renderLetters("Bihar")}</span>
             </h1>
           </div>
 
@@ -308,6 +314,51 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
               View Gallery
             </a>
           </div>
+
+          {/* Stats Row */}
+          <div className={styles.statsRow}>
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>{institutes.length}</span>
+              <span className={styles.statLabel}>Premier Chapters</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>{events.length}+</span>
+              <span className={styles.statLabel}>Active Events</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>1500+</span>
+              <span className={styles.statLabel}>Youth Thinkers</span>
+            </div>
+            <div className={styles.statDivider} />
+            <div className={styles.statItem}>
+              <span className={styles.statNumber}>100%</span>
+              <span className={styles.statLabel}>Patriotic Focus</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Ashoka Chakra SVG Decoration */}
+        <div className={styles.chakraContainer}>
+          <svg className={styles.ashokaChakra} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="50" cy="50" r="46" stroke="#F97316" strokeWidth="1.8" fill="none" />
+            {[...Array(24)].map((_, i) => {
+              const angle = (i * 360) / 24 * (Math.PI / 180);
+              return (
+                <line
+                  key={i}
+                  x1="50"
+                  y1="50"
+                  x2={50 + 46 * Math.cos(angle)}
+                  y2={50 + 46 * Math.sin(angle)}
+                  stroke="#1E3A8A"
+                  strokeWidth="0.8"
+                />
+              );
+            })}
+            <circle cx="50" cy="50" r="4" fill="#F97316" />
+          </svg>
         </div>
 
         <div className={styles.heroBackground}>
