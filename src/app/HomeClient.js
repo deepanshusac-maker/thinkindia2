@@ -292,18 +292,22 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
             </div>
           )}
 
-          <div className={styles.heroBadge}>Nation First, Always</div>
+          <div className={styles.heroBadge}>भारत माता की जय</div>
 
           <div className={styles.logoRevealContainer}>
             <h1 ref={titleRef} className={styles.heroTitle}>
-              <span className={styles.titleLineWhite}>{renderLetters("Think")}</span>{" "}
-              <span className={styles.titleLineSaffron}>{renderLetters("India")}</span>{" "}
-              <span className={styles.titleLineGreen}>{renderLetters("Bihar")}</span>
+              <span className={styles.titleLineSaffron}>{renderLetters("Empowering")}</span><br />
+              <span className={styles.titleLineWhite}>{renderLetters("Youth")}</span>{" "}
+              <span className={styles.titleLineWhite}>{renderLetters("to")}</span>{" "}
+              <span className={styles.titleLineWhite}>{renderLetters("Build")}</span><br />
+              <span className={styles.titleLineWhite}>{renderLetters("a")}</span>{" "}
+              <span className={styles.titleLineSaffron}>{renderLetters("Stronger")}</span><br />
+              <span className={styles.titleLineGreen}>{renderLetters("India.")}</span>
             </h1>
           </div>
 
           <p ref={subtitleRef} className={styles.heroSubtitle}>
-            A forum of thinkers and leaders from Bihar&apos;s premier institutes — dedicated to building India&apos;s next great chapter through policy research, legal awareness, and civic action.
+            Think India Bihar — A forum of thinkers, innovators, and leaders who believe that India&apos;s best chapter is yet to be written, and that we will write it.
           </p>
 
           <div ref={ctaRef} className={styles.heroCta}>

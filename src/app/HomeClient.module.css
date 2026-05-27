@@ -116,7 +116,7 @@
 }
 
 .heroTitle {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(3rem, 7vw, 5rem);
   font-weight: 800;
   line-height: 1.1;
   color: #FFFFFF;
@@ -150,10 +150,10 @@
 }
 
 .heroSubtitle {
-  font-size: clamp(1rem, 2vw, 1.125rem);
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
   font-weight: var(--font-normal);
   color: rgba(255, 255, 255, 0.85);
-  max-width: 660px;
+  max-width: 720px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;
   opacity: 0; /* Animated */
