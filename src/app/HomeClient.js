@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock } from "lucide-react";
-import { FaXTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa6';
 import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./HomeClient.module.css";
@@ -343,27 +343,6 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
           </div>
         </div>
 
-        {/* Ashoka Chakra SVG Decoration */}
-        <div className={styles.chakraContainer}>
-          <svg className={styles.ashokaChakra} viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="50" cy="50" r="46" stroke="#F97316" strokeWidth="1.8" fill="none" />
-            {[...Array(24)].map((_, i) => {
-              const angle = (i * 360) / 24 * (Math.PI / 180);
-              return (
-                <line
-                  key={i}
-                  x1="50"
-                  y1="50"
-                  x2={50 + 46 * Math.cos(angle)}
-                  y2={50 + 46 * Math.sin(angle)}
-                  stroke="#1E3A8A"
-                  strokeWidth="0.8"
-                />
-              );
-            })}
-            <circle cx="50" cy="50" r="4" fill="#F97316" />
-          </svg>
-        </div>
 
         <div className={styles.heroBackground}>
           <img
@@ -674,37 +653,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
       </section>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <div className={styles.footerGrid}>
-            {/* Column 1: Brand */}
-            <div className={styles.footerBrandCol}>
-              <div className={styles.footerBrand}>Think India Bihar</div>
-              <p className={styles.footerAbout}>A forum of students, researchers, and young professionals from premier institutes dedicated to nation-building.</p>
-            </div>
-            {/* Column 2: Quick Links */}
-            <div className={styles.footerLinksCol}>
-              <h4 className={styles.footerColTitle}>Quick Links</h4>
-              <Link href="/" className={styles.footerLink}>Home</Link>
-              <a href="#about" className={styles.footerLink}>About</a>
-              <a href="#institutes" className={styles.footerLink}>Institutes</a>
-              <Link href="/admin" className={styles.footerLink}>Admin Portal</Link>
-            </div>
-            {/* Column 3: Connect */}
-            <div className={styles.footerSocialCol}>
-              <h4 className={styles.footerColTitle}>Connect</h4>
-              <div className={styles.socialLinks}>
-                <a href="#" className={styles.socialLink} aria-label="Twitter"><FaXTwitter size={18} /></a>
-                <a href="#" className={styles.socialLink} aria-label="LinkedIn"><FaLinkedinIn size={18} /></a>
-                <a href="#" className={styles.socialLink} aria-label="Instagram"><FaInstagram size={18} /></a>
-              </div>
-            </div>
-          </div>
-          <div className={styles.footerBottom}>
-            <div className={styles.footerCopy}>&copy; {new Date().getFullYear()} Think India Bihar. All rights reserved.</div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

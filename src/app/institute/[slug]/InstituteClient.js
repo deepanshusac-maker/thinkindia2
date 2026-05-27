@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, ChevronLeft, ChevronRight, Calendar, AlertTriangle, Image as ImageIcon, ArrowRight, X, MapPin, Clock } from "lucide-react";
-import { FaXTwitter, FaLinkedinIn, FaInstagram } from 'react-icons/fa6';
 import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
 import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./InstituteClient.module.css";
@@ -253,8 +253,8 @@ export default function InstituteClient({ institute, team, events, gallery, usin
         </div>
       </header>
 
-      {/* Team Carousel Section */}
-      <section ref={teamSectionRef} className={styles.section} style={{ opacity: 1 /* Base value overridden by GSAP */ }}>
+      {/* Team Section */}
+      <section id="team" ref={teamSectionRef} className={styles.section} style={{ opacity: 1 /* Base value overridden by GSAP */ }}>
         <div className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Meet the Team</h2>
@@ -306,7 +306,7 @@ export default function InstituteClient({ institute, team, events, gallery, usin
       </section>
 
       {/* Events Section */}
-      <section ref={eventsSectionRef} className={styles.section} style={{ opacity: 1 /* GSAP animated */ }}>
+      <section id="events" ref={eventsSectionRef} className={styles.section} style={{ opacity: 1 /* GSAP animated */ }}>
         <div className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Institute Events</h2>
@@ -460,7 +460,7 @@ export default function InstituteClient({ institute, team, events, gallery, usin
       </section>
 
       {/* Gallery Section */}
-      <section ref={gallerySectionRef} className={styles.section} style={{ opacity: 1 /* GSAP animated */ }}>
+      <section id="gallery" ref={gallerySectionRef} className={styles.section} style={{ opacity: 1 /* GSAP animated */ }}>
         <div className={styles.sectionContainer}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>Gallery Highlights</h2>
@@ -503,41 +503,7 @@ export default function InstituteClient({ institute, team, events, gallery, usin
       </section>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <div className={styles.footerGrid}>
-            {/* Column 1: Brand */}
-            <div className={styles.footerBrandCol}>
-              <div className={styles.footerBrand}>Think India {institute.name}</div>
-              <p className={styles.footerAbout}>
-                Think India chapter at {institute.name}, connecting students and researchers for policy advocacy and grassroots nation-building.
-              </p>
-            </div>
-            {/* Column 2: Quick Links */}
-            <div className={styles.footerLinksCol}>
-              <h4 className={styles.footerColTitle}>Quick Links</h4>
-              <Link href="/" className={styles.footerLink}>Home</Link>
-              <a href="#about" className={styles.footerLink}>About</a>
-              <a href="#events" className={styles.footerLink}>Events</a>
-              <a href="#gallery" className={styles.footerLink}>Gallery</a>
-            </div>
-            {/* Column 3: Connect */}
-            <div className={styles.footerSocialCol}>
-              <h4 className={styles.footerColTitle}>Connect</h4>
-              <div className={styles.socialLinks}>
-                <a href="#" className={styles.socialLink} aria-label="Twitter"><FaXTwitter size={18} /></a>
-                <a href="#" className={styles.socialLink} aria-label="LinkedIn"><FaLinkedinIn size={18} /></a>
-                <a href="#" className={styles.socialLink} aria-label="Instagram"><FaInstagram size={18} /></a>
-              </div>
-            </div>
-          </div>
-          <div className={styles.footerBottom}>
-            <div className={styles.footerCopy}>
-              &copy; {new Date().getFullYear()} Think India Bihar. All rights reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer isInstitutePage={true} instituteName={institute.name} />
     </div>
   );
 }

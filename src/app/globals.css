@@ -19,14 +19,14 @@
   --color-text:       #f0f0f0;
   --color-text-muted: rgba(255, 255, 255, 0.5);
 
-  --color-saffron:    #FF9933;  /* Indian Flag Saffron */
-  --color-saffron-2:  #FF8C1A;  /* Deep Saffron */
-  --color-green:      #138808;  /* Indian Flag Green */
-  --color-navy:       #0A1931;  /* Deep Navy (Ashoka Chakra Blue) */
+  --color-saffron:    #F97316;  /* Nationalist Saffron brand color */
+  --color-saffron-2:  #EA580C;  /* Deep Saffron accent */
+  --color-green:      #10B981;  /* High-end Emerald Green */
+  --color-navy:       #1E3A8A;  /* Ashoka Chakra Blue */
   --color-white:      #FFFFFF;  /* Indian Flag White */
 
-  --gradient-accent:  linear-gradient(135deg, #FF9933 0%, #FF8C1A 100%);
-  --gradient-tricolor: linear-gradient(180deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
+  --gradient-accent:  linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+  --gradient-tricolor: linear-gradient(180deg, #F97316 0%, #FFFFFF 50%, #10B981 100%);
 
   /* --- Typography --- */
   --font-sans: var(--font-outfit), 'Outfit', system-ui, -apple-system, sans-serif;
@@ -87,6 +87,12 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Accessibility Focus Rings */
+:focus-visible {
+  outline: 2px solid var(--color-saffron);
+  outline-offset: 4px;
 }
 
 img {
