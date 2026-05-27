@@ -25,8 +25,8 @@
   justify-content: center;
   padding: 6rem var(--section-px) var(--section-py);
   overflow: hidden;
-  /* Glowing nationalist white background gradient */
-  background: radial-gradient(circle at top center, rgba(249, 115, 22, 0.03) 0%, #FFFFFF 100%);
+  /* Glowing nationalist dark background for image fallback */
+  background: linear-gradient(135deg, #0D0D0D 0%, #1a0a00 100%);
   width: 100%;
 }
 
@@ -50,8 +50,8 @@
 
 .heroBadge {
   display: inline-block;
-  background: rgba(249, 115, 22, 0.06);
-  border: 1px solid rgba(249, 115, 22, 0.18);
+  background: rgba(249, 115, 22, 0.12);
+  border: 1px solid rgba(249, 115, 22, 0.35);
   border-radius: 999px;
   padding: 6px 18px;
   font-size: 11px;
@@ -60,7 +60,7 @@
   text-transform: uppercase;
   color: #F97316;
   margin-bottom: 2rem;
-  box-shadow: 0 1px 3px rgba(249, 115, 22, 0.02);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.05);
 }
 
 .heroContent {
@@ -75,11 +75,20 @@
 }
 
 .heroBackground {
-  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: block;
 }
 
 .heroOverlay {
-  display: none;
+  position: absolute;
+  inset: 0;
+  /* Dark overlay at ~55% opacity to ensure high readability */
+  background: rgba(13, 13, 13, 0.55);
+  z-index: 2;
+  display: block;
 }
 
 /* Fallback alert banner */
@@ -89,8 +98,8 @@
   gap: 0.5rem;
   padding: 0.5rem 1rem;
   border-radius: 100px;
-  background-color: rgba(255, 107, 53, 0.05);
-  border: 1px solid rgba(255, 107, 53, 0.12);
+  background-color: rgba(255, 107, 53, 0.08);
+  border: 1px solid rgba(255, 107, 53, 0.15);
   color: var(--color-saffron);
   font-size: 0.75rem;
   font-weight: 600;
@@ -110,23 +119,23 @@
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 800;
   line-height: 1.1;
-  color: var(--color-text);
+  color: #FFFFFF;
   margin-bottom: 0.75rem;
   letter-spacing: -0.03em;
   perspective: 1000px;
 }
 
 /* Tricolour Word Highlights */
-.titleLineSlate {
-  color: var(--color-text);
+.titleLineWhite {
+  color: #FFFFFF;
 }
 
 .titleLineSaffron {
-  color: var(--color-saffron);
+  color: #F97316;
 }
 
 .titleLineGreen {
-  color: var(--color-green);
+  color: #22C55E;
 }
 
 .brandWord {
@@ -143,7 +152,7 @@
 .heroSubtitle {
   font-size: clamp(1rem, 2vw, 1.125rem);
   font-weight: var(--font-normal);
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.85);
   max-width: 660px;
   margin: 0 auto 2.5rem;
   line-height: 1.7;
@@ -189,8 +198,8 @@
   padding: 0.9rem 2rem;
   border-radius: var(--radius-md);
   background: transparent;
-  border: 1.5px solid var(--color-text);
-  color: var(--color-text);
+  border: 1.5px solid #FFFFFF;
+  color: #FFFFFF;
   font-weight: 700;
   font-size: 0.9375rem;
   transition: all 0.2s var(--ease-out);
@@ -198,10 +207,10 @@
 }
 
 .btnSecondary:hover {
-  background: var(--color-text);
-  color: #FFFFFF;
+  background: #FFFFFF;
+  color: #0D0D0D;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
 }
 
 /* Stats Row styling */
@@ -227,7 +236,7 @@
 .statNumber {
   font-size: 2.25rem;
   font-weight: 800;
-  color: var(--color-text);
+  color: #ffffff;
   line-height: 1;
   margin-bottom: 0.4rem;
 }
@@ -243,7 +252,7 @@
 .statDivider {
   width: 1px;
   height: 36px;
-  background-color: var(--color-border);
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 /* Ashoka Chakra Container */
@@ -254,7 +263,7 @@
   transform: translateY(-50%);
   width: 320px;
   height: 320px;
-  opacity: 0.25; /* Sleek minimal wireframe look */
+  opacity: 0.65; /* Stand out beautifully on top of background photo */
   z-index: 3;
   pointer-events: none;
   display: none; /* Mobile first hidden */

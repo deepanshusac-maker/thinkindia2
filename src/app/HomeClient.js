@@ -296,7 +296,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
           <div className={styles.logoRevealContainer}>
             <h1 ref={titleRef} className={styles.heroTitle}>
-              <span className={styles.titleLineSlate}>{renderLetters("Think")}</span>{" "}
+              <span className={styles.titleLineWhite}>{renderLetters("Think")}</span>{" "}
               <span className={styles.titleLineSaffron}>{renderLetters("India")}</span>{" "}
               <span className={styles.titleLineGreen}>{renderLetters("Bihar")}</span>
             </h1>
@@ -359,6 +359,15 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
             })}
             <circle cx="50" cy="50" r="4" fill="#F97316" />
           </svg>
+        </div>
+
+        <div className={styles.heroBackground}>
+          <img
+            src="/hero_bg.png"
+            alt="Think India Bihar background"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+          <div className={styles.heroOverlay} />
         </div>
       </section>
 
