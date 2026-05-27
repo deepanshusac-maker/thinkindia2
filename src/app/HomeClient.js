@@ -181,12 +181,13 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
           </div>
         </div>
 
-        <div className={styles.heroVisual}>
+        <div className={styles.heroBackground}>
           <img
             src="/hero_bg.png"
-            alt="Think India Bihar"
-            style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "inherit" }}
+            alt="Think India Bihar background"
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
+          <div className={styles.heroOverlay} />
         </div>
       </section>
 

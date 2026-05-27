@@ -12,6 +12,8 @@ import {
   LogOut,
   Users,
   Loader,
+  Menu,
+  X,
 } from "lucide-react";
 
 import ToastContainer from "./Toast";
@@ -35,6 +37,7 @@ export default function AdminDashboard({ userEmail }) {
   const [toasts, setToasts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const selectedInstitute = institutes.find((i) => i.id === selectedId) || null;
 
@@ -150,11 +153,39 @@ export default function AdminDashboard({ userEmail }) {
 
   return (
     <div className={styles.dashboard}>
+      {/* Mobile Top Bar */}
+      <div className={styles.mobileTopBar}>
+        <button
+          className={styles.mobileMenuBtn}
+          onClick={() => setIsSidebarOpen(true)}
+          aria-label="Open menu"
+        >
+          <Menu size={20} />
+        </button>
+        <span className={styles.mobileBrandTitle}>Think India Bihar</span>
+        <div style={{ width: 20 }} /> {/* balance spacer */}
+      </div>
+
+      {/* Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div
+          className={styles.sidebarOverlay}
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ""}`}>
         <div className={styles.brand}>
           <div className={styles.brandIcon}>TI</div>
           <span className={styles.brandName}>Think India Bihar</span>
+          <button
+            className={styles.mobileCloseBtn}
+            onClick={() => setIsSidebarOpen(false)}
+            aria-label="Close menu"
+          >
+            <X size={18} />
+          </button>
         </div>
 
         <p className={styles.sidebarLabel}>Institutes</p>
@@ -165,7 +196,10 @@ export default function AdminDashboard({ userEmail }) {
               className={`${styles.instituteItem} ${
                 inst.id === selectedId ? styles.instituteItemActive : ""
               }`}
-              onClick={() => setSelectedId(inst.id)}
+              onClick={() => {
+                setSelectedId(inst.id);
+                setIsSidebarOpen(false); // Auto-close sidebar on mobile
+              }}
             >
               <span className={styles.instituteDot} />
               {inst.name}
