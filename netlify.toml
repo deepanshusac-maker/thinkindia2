@@ -1,3 +1,4 @@
+# Trigger rebuild with environment variables
 [build]
   command = "npm run build"
   publish = ".next"
