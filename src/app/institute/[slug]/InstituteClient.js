@@ -277,6 +277,18 @@ export default function InstituteClient({ institute, team, events, gallery, usin
               )}
               <span className={styles.chapterLabel}>Think India Institute</span>
               <h1 className={styles.title}>{institute.name}</h1>
+              
+              <div className={styles.mobileHeroVisual}>
+                <div className={styles.visualFrame}>
+                  <SkeletonImage
+                    src={imageUrl}
+                    alt={`${institute.name} Campus`}
+                    style={{ width: "100%", height: "100%" }}
+                    priority
+                  />
+                </div>
+              </div>
+
               <p className={styles.aboutText}>{institute.about_text}</p>
             </div>
             

@@ -70,6 +70,29 @@
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
+
+  .mobileHeroVisual {
+    display: block;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    border: 1px solid var(--color-border);
+    margin: 1.5rem 0 2rem;
+    transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+  }
+
+  .mobileHeroVisual:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(249, 115, 22, 0.08), var(--shadow-xl);
+    border-color: var(--color-border-hover);
+  }
+
+  .heroVisual {
+    display: none;
+  }
 }
 
 .heroContent {
@@ -98,6 +121,10 @@
 .instituteLogo:hover {
   transform: translateY(-4px) scale(1.05) rotate(2deg);
   box-shadow: 0 12px 30px rgba(249, 115, 22, 0.15), 0 0 0 2px var(--color-saffron);
+}
+
+.mobileHeroVisual {
+  display: none;
 }
 
 .heroVisual {
