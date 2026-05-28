@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
  * A wrapper around the standard HTML img tag that displays a pulsing skeleton loader
  * while the image is loading from Supabase (or any URL) or if there's a slow connection.
  */
-export default function SkeletonImage({ src, alt, className = "", style = {}, fetchPriority, ...props }) {
+export default function SkeletonImage({ src, alt, className = "", style = {}, fetchPriority, priority, ...props }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -74,8 +74,8 @@ export default function SkeletonImage({ src, alt, className = "", style = {}, fe
           <img
             src={src}
             alt={alt || "Think India Asset"}
-            loading={fetchPriority === "high" ? "eager" : "lazy"}
-            fetchPriority={fetchPriority}
+            loading={priority || fetchPriority === "high" ? "eager" : "lazy"}
+            fetchPriority={priority ? "high" : fetchPriority}
             sizes={props.sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
             onLoad={() => setLoading(false)}
             onError={() => {
