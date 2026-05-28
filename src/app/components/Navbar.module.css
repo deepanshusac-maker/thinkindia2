@@ -39,8 +39,6 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
-  border-top: 4px solid transparent;
-  border-image: linear-gradient(90deg, var(--color-saffron) 0%, var(--color-saffron) 33.3%, var(--color-white) 33.3%, var(--color-white) 66.6%, var(--color-green) 66.6%) 1;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -184,7 +182,6 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* --- Mobile drawer --- */
 .mobileMenu {
   display: none;
   flex-direction: column;
@@ -193,18 +190,19 @@
   background-color: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--color-border);
-  padding: 1rem 2rem 1.5rem;
+  border-bottom: 0 solid transparent;
+  padding: 0 2rem;
   overflow: hidden;
   max-height: 0;
   opacity: 0;
-  transition: max-height 0.4s var(--ease-out), opacity 0.3s ease, padding 0.4s var(--ease-out);
+  transition: max-height 0.4s var(--ease-out), opacity 0.3s ease, padding 0.4s var(--ease-out), border-color 0.3s ease;
 }
 
 .mobileMenuOpen {
   max-height: 400px;
   opacity: 1;
   padding: 1rem 2rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .mobileNavLink {
