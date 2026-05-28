@@ -318,76 +318,78 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
       <section ref={heroRef} className={styles.hero}>
         <div className={styles.tricolourStripe} />
         
-        <div className={styles.heroContent}>
-          {usingMockData && (
-            <div className={styles.fallbackBanner}>
-              <AlertTriangle size={14} />
-              <span>Preview Mode (Database Unconfigured or Empty)</span>
+        <div className={styles.heroContainer}>
+          <div className={styles.heroContent}>
+            {usingMockData && (
+              <div className={styles.fallbackBanner}>
+                <AlertTriangle size={14} />
+                <span>Preview Mode (Database Unconfigured or Empty)</span>
+              </div>
+            )}
+
+            <div className={styles.heroBadge}>भारत माता की जय</div>
+
+            <div className={styles.logoRevealContainer}>
+              <h1 ref={titleRef} className={styles.heroTitle}>
+                <span className={styles.titleLineSaffron}>{renderLetters("Empowering")}</span><br />
+                <span className={styles.titleLineWhite}>{renderLetters("Youth")}</span>{" "}
+                <span className={styles.titleLineWhite}>{renderLetters("to")}</span>{" "}
+                <span className={styles.titleLineWhite}>{renderLetters("Build")}</span><br />
+                <span className={styles.titleLineWhite}>{renderLetters("a")}</span>{" "}
+                <span className={styles.titleLineSaffron}>{renderLetters("Stronger")}</span><br />
+                <span className={styles.titleLineGreen}>{renderLetters("India.")}</span>
+              </h1>
             </div>
-          )}
 
-          <div className={styles.heroBadge}>भारत माता की जय</div>
+            <p ref={subtitleRef} className={styles.heroSubtitle}>
+              Think India Bihar — A forum of thinkers, innovators, and leaders who believe that India&apos;s best chapter is yet to be written, and that we will write it.
+            </p>
 
-          <div className={styles.logoRevealContainer}>
-            <h1 ref={titleRef} className={styles.heroTitle}>
-              <span className={styles.titleLineSaffron}>{renderLetters("Empowering")}</span><br />
-              <span className={styles.titleLineWhite}>{renderLetters("Youth")}</span>{" "}
-              <span className={styles.titleLineWhite}>{renderLetters("to")}</span>{" "}
-              <span className={styles.titleLineWhite}>{renderLetters("Build")}</span><br />
-              <span className={styles.titleLineWhite}>{renderLetters("a")}</span>{" "}
-              <span className={styles.titleLineSaffron}>{renderLetters("Stronger")}</span><br />
-              <span className={styles.titleLineGreen}>{renderLetters("India.")}</span>
-            </h1>
+            <div ref={ctaRef} className={styles.heroCta}>
+              <a href="#institutes" className={styles.btnPrimary}>
+                Explore Institutes <ArrowRight size={18} />
+              </a>
+              <a href="#gallery" className={styles.btnSecondary}>
+                View Gallery
+              </a>
+            </div>
+
+            {/* Stats Row */}
+            <motion.div
+              className={styles.statsRow}
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.65, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>
+                  <AnimatedNumber value={50} suffix="+" />
+                </span>
+                <span className={styles.statLabel}>Partner Institutes</span>
+              </div>
+              <div className={styles.statDivider} />
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>
+                  <AnimatedNumber value={10} suffix="K+" />
+                </span>
+                <span className={styles.statLabel}>Youth Empowered</span>
+              </div>
+              <div className={styles.statDivider} />
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>
+                  <AnimatedNumber value={38} />
+                </span>
+                <span className={styles.statLabel}>Districts Reached</span>
+              </div>
+              <div className={styles.statDivider} />
+              <div className={styles.statItem}>
+                <span className={styles.statNumber}>
+                  <AnimatedNumber value={200} suffix="+" />
+                </span>
+                <span className={styles.statLabel}>Events Hosted</span>
+              </div>
+            </motion.div>
           </div>
-
-          <p ref={subtitleRef} className={styles.heroSubtitle}>
-            Think India Bihar — A forum of thinkers, innovators, and leaders who believe that India&apos;s best chapter is yet to be written, and that we will write it.
-          </p>
-
-          <div ref={ctaRef} className={styles.heroCta}>
-            <a href="#institutes" className={styles.btnPrimary}>
-              Explore Institutes <ArrowRight size={18} />
-            </a>
-            <a href="#gallery" className={styles.btnSecondary}>
-              View Gallery
-            </a>
-          </div>
-
-          {/* Stats Row */}
-          <motion.div
-            className={styles.statsRow}
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.65, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>
-                <AnimatedNumber value={50} suffix="+" />
-              </span>
-              <span className={styles.statLabel}>Partner Institutes</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>
-                <AnimatedNumber value={10} suffix="K+" />
-              </span>
-              <span className={styles.statLabel}>Youth Empowered</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>
-                <AnimatedNumber value={38} />
-              </span>
-              <span className={styles.statLabel}>Districts Reached</span>
-            </div>
-            <div className={styles.statDivider} />
-            <div className={styles.statItem}>
-              <span className={styles.statNumber}>
-                <AnimatedNumber value={200} suffix="+" />
-              </span>
-              <span className={styles.statLabel}>Events Hosted</span>
-            </div>
-          </motion.div>
         </div>
 
 
