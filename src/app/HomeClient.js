@@ -393,7 +393,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
         <div className={styles.heroBackground}>
           <Image
-            src="/hero_bg_new.png"
+            src="/hero_bg_new.jpg"
             alt=""
             fill
             priority
@@ -475,7 +475,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
         <div ref={gridRef} className={styles.grid}>
           {institutes.map((inst) => {
-            const imageUrl = inst.image_url || INSTITUTE_IMAGES[inst.slug] || "/hero_bg_new.png";
+            const imageUrl = inst.image_url || INSTITUTE_IMAGES[inst.slug] || "/hero_bg_new.jpg";
             return (
               <Link key={inst.id} href={`/institute/${inst.slug}`}>
                 <div className={`${styles.card} institute-card`}>

@@ -29,7 +29,7 @@ const INSTITUTE_LOGOS = {
 export default function InstituteClient({ institute, team, events, gallery, usingMockData }) {
   const carouselTrackRef = useRef(null);
   const aboutSectionRef = useRef(null);
-  const imageUrl = institute.image_url || INSTITUTE_IMAGES[institute.slug] || "/hero_bg_new.png";
+  const imageUrl = institute.image_url || INSTITUTE_IMAGES[institute.slug] || "/hero_bg_new.jpg";
   const logoUrl = INSTITUTE_LOGOS[institute.slug] || "/logo.jpg";
   const teamSectionRef = useRef(null);
   const eventsSectionRef = useRef(null);
