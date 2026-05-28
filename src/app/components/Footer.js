@@ -116,7 +116,7 @@ export default function Footer({ isInstitutePage = false, instituteName = "" }) 
           <p className={styles.footerCopy}>
             &copy; {currentYear} Think India Bihar. All rights reserved.
           </p>
-          <span className={styles.footerMotto}>Nation First, Always</span>
+          <span className={styles.footerMotto}>जय हिन्द</span>
         </div>
       </div>
     </footer>
