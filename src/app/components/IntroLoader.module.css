@@ -1,0 +1,95 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  width: 100vw;
+  height: 100vh;
+  background-color: #08080f; /* Immersive pure-dark backdrop */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Ambient auroras for patriotic saffron and green background drift */
+.auroraSaffron {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.14) 0%, rgba(249, 115, 22, 0) 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.auroraGreen {
+  position: absolute;
+  bottom: -10%;
+  right: -10%;
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0) 70%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.centerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  text-align: center;
+}
+
+.chakraWrapper {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Add beautiful drop-shadow sapphire glow to vector spokes */
+  filter: drop-shadow(0 0 15px rgba(96, 165, 250, 0.25));
+  margin-bottom: 2rem;
+}
+
+.chakraSvg {
+  display: block;
+  /* Slow, majestic, steady wheel rotation */
+  animation: spinChakra 45s infinite linear;
+}
+
+@keyframes spinChakra {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.sanskritText {
+  font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-weight: 600;
+  font-style: italic;
+  color: #FFF9F2; /* Creamy light text */
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+  /* Glowing luxury golden script shadow */
+  text-shadow: 0 0 16px rgba(251, 191, 36, 0.2), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subText {
+  font-family: var(--font-sans), 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+}

@@ -10,6 +10,7 @@ import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./HomeClient.module.css";
 import { motion } from "framer-motion";
+import IntroLoader from "@/app/components/IntroLoader";
 
 const INSTITUTE_IMAGES = {
   "nit-patna": "/images/nit-patna.jpeg",
@@ -56,6 +57,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
   // Modal Dialog states and refs
   const [selectedEvent, setSelectedEvent] = useState(null);
   const dialogRef = useRef(null);
+  const [introCompleted, setIntroCompleted] = useState(false);
 
   const openEventModal = (event) => {
     setSelectedEvent(event);
@@ -221,6 +223,8 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
   };
 
   useEffect(() => {
+    if (!introCompleted) return; // Wait until intro loader is fully completed!
+
     let gsapInstance;
     let ScrollTriggerInstance;
 
@@ -307,10 +311,13 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
         ScrollTriggerInstance.getAll().forEach((t) => t.kill());
       }
     };
-  }, []);
+  }, [introCompleted]);
 
   return (
     <div className={styles.wrapper}>
+      {/* Cinematic Intro Loader */}
+      <IntroLoader onComplete={() => setIntroCompleted(true)} />
+
       {/* Navigation */}
       <Navbar />
 
