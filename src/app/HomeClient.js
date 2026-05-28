@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
@@ -354,10 +355,13 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
 
         <div className={styles.heroBackground}>
-          <img
+          <Image
             src="/hero_bg.png"
-            alt="Think India Bihar background"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            alt=""
+            fill
+            priority
+            style={{ objectFit: "cover" }}
+            sizes="100vw"
           />
           <div className={styles.heroOverlay} />
         </div>

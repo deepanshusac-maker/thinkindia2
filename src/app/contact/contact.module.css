@@ -13,7 +13,6 @@
 /* ── Main content wrapper ── */
 .main {
   flex: 1;
-  padding-top: 88px; /* offset for fixed navbar */
 }
 
 /* ══════════════════════════════

@@ -125,6 +125,7 @@ button {
   --color-bg:         #FFFFFF; /* Pure White Background */
   --color-surface:    #FFFFFF; /* White Cards */
   --color-border:     rgba(15, 23, 42, 0.08); /* Ultra-thin light slate borders */
+  --color-border-hover: rgba(249, 115, 22, 0.2); /* Saffron-tinted hover border */
   --color-text:       #0F172A; /* Deep Slate/Charcoal text */
   --color-text-muted: #475569; /* Slate grey body copy */
   --color-saffron:    #F97316; /* Nationalist Saffron brand color */

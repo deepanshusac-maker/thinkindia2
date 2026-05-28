@@ -26,7 +26,7 @@
 
 /* ---- Hero Section ---- */
 .hero {
-  padding: 2.5rem var(--section-px) 3rem;
+  padding: 1.5rem var(--section-px) 3rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -67,7 +67,7 @@
 
 .title {
   font-size: clamp(2.5rem, 5vw, 3.75rem);
-  font-weight: 900;
+  font-weight: var(--font-black);
   color: var(--color-navy);
   line-height: 1.1;
   margin-bottom: 1.5rem;
@@ -176,8 +176,8 @@
 
 .teamCard:hover {
   transform: translateY(-5px);
-  border-color: rgba(255, 107, 53, 0.15);
-  box-shadow: 0 10px 25px rgba(10, 25, 49, 0.05);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .imageFrame {
@@ -204,409 +204,44 @@
   font-weight: 500;
 }
 
-/* ---- Vertical Stacked Events Layout ---- */
-.eventsContainer {
-  max-width: 1000px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.eventsGroup {
-  display: flex;
-  flex-direction: column;
-}
-
-.groupHeading {
-  font-size: 1.35rem;
-  font-weight: var(--font-bold);
-  color: var(--color-navy);
-  margin-bottom: 1.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  letter-spacing: -0.01em;
-}
-
-.groupIndicatorSaffron,
-.groupIndicatorNavy {
-  display: inline-block;
-  width: 6px;
-  height: 24px;
-  border-radius: var(--radius-sm);
-}
-
-.groupIndicatorSaffron {
-  background: var(--color-saffron);
-}
-
-.groupIndicatorNavy {
-  background: var(--color-navy);
-}
-
-.eventsStackList {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Flex Horizontal Card */
-.eventCard {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-  transition: all 0.4s var(--ease-out);
-  position: relative;
-  min-height: 200px;
-}
-
-.eventCard:hover {
-  border-color: rgba(255, 107, 53, 0.2);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
-}
-
-.eventImageContainer {
-  flex: 0 0 280px;
-  position: relative;
-  overflow: hidden;
-}
-
-.noImage {
-  background-color: rgba(10, 25, 49, 0.02);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.eventTextContainer {
-  flex: 1;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* Category Badging */
-.statusBadge {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  padding: 0.3rem 0.75rem;
-  border-radius: 100px;
-  box-shadow: var(--shadow-sm);
-  z-index: 5;
-}
-
-.upcomingBadge {
-  background: var(--color-saffron);
-  color: #fff;
-}
-
-.pastBadge {
-  background: var(--color-navy);
-  color: #fff;
-}
-
-.eventCardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 0.75rem;
-}
-
-.instituteTag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--color-saffron);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.eventDateTag {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-}
-
-.eventCardTitle {
-  font-size: 1.35rem;
-  font-weight: var(--font-bold);
-  color: var(--color-navy);
-  line-height: 1.3;
-  margin-bottom: 0.75rem;
-}
-
-.eventCardDesc {
-  font-size: 0.9375rem;
-  color: var(--color-text-muted);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.knowMoreBtn {
-  align-self: flex-start;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--color-saffron);
-  font-weight: 700;
-  font-size: 0.875rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: gap 0.2s var(--ease-out), color 0.2s ease;
-}
-
-.knowMoreBtn:hover {
-  color: var(--color-saffron-2);
-  gap: 0.75rem;
-}
-
-/* Responsive Horizontal Collapse */
-@media (max-width: 768px) {
-  .eventCard {
-    flex-direction: column;
-    min-height: auto;
-  }
-
-  .eventImageContainer {
-    flex: 0 0 200px;
-    width: 100%;
-  }
-
-  .eventTextContainer {
-    padding: 1.5rem;
-  }
-}
-
-/* ---- Premium Native Dialog Modal Styles ---- */
-.dialog {
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-xl);
-  background: var(--color-surface);
-  color: var(--color-text);
-  max-width: 650px;
-  width: 90%;
-  margin: auto;
-  padding: 0;
-  box-shadow: var(--shadow-xl);
-  overflow: hidden;
-  position: fixed;
-  inset: 0;
-}
-
-/* Dialog opening fade/slide animation */
-.dialog[open] {
-  animation: modalFadeIn 0.4s var(--ease-out);
-}
-
-@keyframes modalFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95) translateY(15px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
-
-.dialog::backdrop {
-  background: rgba(10, 25, 49, 0.4);
-  backdrop-filter: blur(10px);
-  animation: backdropFadeIn 0.3s ease-out;
-}
-
-@keyframes backdropFadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.modalContent {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.dialogCloseBtn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.9);
-  border: 1px solid rgba(10, 25, 49, 0.1);
-  color: var(--color-navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  box-shadow: var(--shadow-md);
-  transition: all 0.2s var(--ease-out);
-}
-
-.dialogCloseBtn:hover {
-  transform: rotate(90deg);
-  background: #fff;
-  color: var(--color-saffron);
-  box-shadow: var(--shadow-lg);
-}
-
-/* Modal Media Header */
-.modalHeroImage,
-.modalGallery {
-  width: 100%;
-  height: 280px;
-  position: relative;
-  overflow: hidden;
-}
-
-.modalGalleryTrack {
-  display: flex;
-  height: 100%;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-.modalGalleryTrack::-webkit-scrollbar {
-  display: none;
-}
-
-.modalGalleryImageFrame {
-  flex: 0 0 100%;
-  height: 100%;
-  scroll-snap-align: start;
-}
-
-.modalNoImage {
-  height: 120px;
-  background-color: rgba(10, 25, 49, 0.03);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Modal text and structural spacing */
-.modalBody {
-  padding: 2rem;
-  max-height: 60vh;
-  overflow-y: auto;
-}
-
-.modalHeaderRow {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-}
-
-.modalInstituteTag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--color-saffron);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  background: rgba(255, 153, 51, 0.08);
-  padding: 0.25rem 0.75rem;
-  border-radius: 4px;
-}
-
-.modalTitle {
-  font-size: 1.75rem;
-  font-weight: var(--font-black);
-  color: var(--color-navy);
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
-}
-
-.modalMetaGrid {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 480px) {
-  .modalMetaGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.modalMetaItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
-}
-
-.metaIconSaffron,
-.metaIconGreen {
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.metaIconSaffron {
-  color: var(--color-saffron);
-}
-
-.metaIconGreen {
-  color: var(--color-green);
-}
-
-.modalMetaItem strong {
-  display: block;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  color: var(--color-text-muted);
-}
-
-.modalMetaItem span {
-  font-size: 0.9rem;
-  color: var(--color-navy);
-  font-weight: 600;
-}
-
-.modalDivider {
-  border: 0;
-  border-top: 1px solid var(--color-border);
-  margin: 1.5rem 0;
-}
-
-.modalDescription h3 {
-  font-size: 1.1rem;
-  font-weight: var(--font-bold);
-  color: var(--color-navy);
-  margin-bottom: 0.75rem;
-}
-
-.modalDescription p {
-  font-size: 0.9375rem;
-  line-height: 1.7;
-  color: var(--color-text-muted);
-  white-space: pre-line;
-}
+/* ---- Shared Event & Modal Styles (composed from shared module) ---- */
+.eventsContainer { composes: eventsContainer from '../../components/SharedEventStyles.module.css'; }
+.eventsGroup { composes: eventsGroup from '../../components/SharedEventStyles.module.css'; }
+.groupHeading { composes: groupHeading from '../../components/SharedEventStyles.module.css'; }
+.groupIndicatorSaffron { composes: groupIndicatorSaffron from '../../components/SharedEventStyles.module.css'; }
+.groupIndicatorNavy { composes: groupIndicatorNavy from '../../components/SharedEventStyles.module.css'; }
+.eventsStackList { composes: eventsStackList from '../../components/SharedEventStyles.module.css'; }
+.eventCard { composes: eventCard from '../../components/SharedEventStyles.module.css'; }
+.eventImageContainer { composes: eventImageContainer from '../../components/SharedEventStyles.module.css'; }
+.noImage { composes: noImage from '../../components/SharedEventStyles.module.css'; }
+.eventTextContainer { composes: eventTextContainer from '../../components/SharedEventStyles.module.css'; }
+.statusBadge { composes: statusBadge from '../../components/SharedEventStyles.module.css'; }
+.upcomingBadge { composes: upcomingBadge from '../../components/SharedEventStyles.module.css'; }
+.pastBadge { composes: pastBadge from '../../components/SharedEventStyles.module.css'; }
+.eventCardHeader { composes: eventCardHeader from '../../components/SharedEventStyles.module.css'; }
+.instituteTag { composes: instituteTag from '../../components/SharedEventStyles.module.css'; }
+.eventDateTag { composes: eventDateTag from '../../components/SharedEventStyles.module.css'; }
+.eventCardTitle { composes: eventCardTitle from '../../components/SharedEventStyles.module.css'; }
+.eventCardDesc { composes: eventCardDesc from '../../components/SharedEventStyles.module.css'; }
+.knowMoreBtn { composes: knowMoreBtn from '../../components/SharedEventStyles.module.css'; }
+.dialog { composes: dialog from '../../components/SharedEventStyles.module.css'; }
+.modalContent { composes: modalContent from '../../components/SharedEventStyles.module.css'; }
+.dialogCloseBtn { composes: dialogCloseBtn from '../../components/SharedEventStyles.module.css'; }
+.modalHeroImage { composes: modalHeroImage from '../../components/SharedEventStyles.module.css'; }
+.modalGallery { composes: modalGallery from '../../components/SharedEventStyles.module.css'; }
+.modalGalleryTrack { composes: modalGalleryTrack from '../../components/SharedEventStyles.module.css'; }
+.modalGalleryImageFrame { composes: modalGalleryImageFrame from '../../components/SharedEventStyles.module.css'; }
+.modalNoImage { composes: modalNoImage from '../../components/SharedEventStyles.module.css'; }
+.modalBody { composes: modalBody from '../../components/SharedEventStyles.module.css'; }
+.modalHeaderRow { composes: modalHeaderRow from '../../components/SharedEventStyles.module.css'; }
+.modalInstituteTag { composes: modalInstituteTag from '../../components/SharedEventStyles.module.css'; }
+.modalTitle { composes: modalTitle from '../../components/SharedEventStyles.module.css'; }
+.modalMetaGrid { composes: modalMetaGrid from '../../components/SharedEventStyles.module.css'; }
+.modalMetaItem { composes: modalMetaItem from '../../components/SharedEventStyles.module.css'; }
+.metaIconSaffron { composes: metaIconSaffron from '../../components/SharedEventStyles.module.css'; }
+.metaIconGreen { composes: metaIconGreen from '../../components/SharedEventStyles.module.css'; }
+.modalDivider { composes: modalDivider from '../../components/SharedEventStyles.module.css'; }
+.modalDescription { composes: modalDescription from '../../components/SharedEventStyles.module.css'; }
 
 .emptyState {
   font-size: 0.9rem;
@@ -635,8 +270,8 @@
 
 .galleryCard:hover {
   transform: scale(1.02);
-  border-color: rgba(255, 107, 53, 0.15);
-  box-shadow: 0 8px 24px rgba(10, 25, 49, 0.06);
+  border-color: var(--color-border-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .galleryImageFrame {
