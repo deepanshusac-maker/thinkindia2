@@ -115,6 +115,26 @@ export default function Footer({ isInstitutePage = false, instituteName = "" }) 
         <div className={styles.footerBottom}>
           <p className={styles.footerCopy}>
             &copy; {currentYear} Think India Bihar. All rights reserved.
+            <span className={styles.creditSep}> • </span>
+            <span className={styles.creditText}>
+              Designed & Developed by{" "}
+              <a
+                href="https://github.com/deepanshusac-maker"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.creditLink}
+              >
+                Deepanshu Sharma
+              </a>
+              <span className={styles.creditSep}> • </span>
+              <a
+                href="/developer?easteregg=true"
+                className={styles.easterEggLink}
+                title="Unlock Creator's Sanctuary"
+              >
+                DS
+              </a>
+            </span>
           </p>
           <span className={styles.footerMotto}>जय हिन्द</span>
         </div>
