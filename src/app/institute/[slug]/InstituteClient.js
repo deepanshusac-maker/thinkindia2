@@ -17,10 +17,20 @@ const INSTITUTE_IMAGES = {
   "nift-patna": "/images/nift-patna.jpeg",
 };
 
+const INSTITUTE_LOGOS = {
+  "nit-patna": "/logo.jpg",
+  "iit-patna": "/logos/iitp.jpeg",
+  "iim-bodhgaya": "/logo.jpg",
+  "cnlu-patna": "/logos/cnlu.png",
+  "iiit-bhagalpur": "/logos/iiitbhagalpur.png",
+  "nift-patna": "/logos/nift.png",
+};
+
 export default function InstituteClient({ institute, team, events, gallery, usingMockData }) {
   const carouselTrackRef = useRef(null);
   const aboutSectionRef = useRef(null);
   const imageUrl = institute.image_url || INSTITUTE_IMAGES[institute.slug] || "/hero_bg_new.png";
+  const logoUrl = INSTITUTE_LOGOS[institute.slug] || "/logo.jpg";
   const teamSectionRef = useRef(null);
   const eventsSectionRef = useRef(null);
   const gallerySectionRef = useRef(null);
@@ -256,6 +266,15 @@ export default function InstituteClient({ institute, team, events, gallery, usin
           
           <div className={styles.heroSplit}>
             <div ref={aboutSectionRef} className={styles.heroContent}>
+              {logoUrl && (
+                <div className={styles.instituteLogo}>
+                  <SkeletonImage
+                    src={logoUrl}
+                    alt={`${institute.name} Logo`}
+                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  />
+                </div>
+              )}
               <span className={styles.chapterLabel}>Think India Institute</span>
               <h1 className={styles.title}>{institute.name}</h1>
               <p className={styles.aboutText}>{institute.about_text}</p>
