@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock } from "lucide-react";
+import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock, Leaf } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import SkeletonImage from "@/app/components/SkeletonImage";
@@ -336,8 +336,29 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
       {/* Hero Section */}
       <section ref={heroRef} className={styles.hero}>
-        <div className={styles.tricolourStripe} />
         
+        {/* Floating Left Card */}
+        <div className={styles.floatingCardLeft}>
+          <div className={styles.floatingCardIconSaffron}>
+            <Building2 size={20} />
+          </div>
+          <div className={styles.floatingCardInfo}>
+            <h4>50+ Institutes</h4>
+            <p>Across Bihar</p>
+          </div>
+        </div>
+
+        {/* Floating Right Card */}
+        <div className={styles.floatingCardRight}>
+          <div className={styles.floatingCardIconGreen}>
+            <Leaf size={20} />
+          </div>
+          <div className={styles.floatingCardInfo}>
+            <h4>Nation Builders</h4>
+            <p>Est. 2018</p>
+          </div>
+        </div>
+
         <div className={styles.heroContent}>
           {usingMockData && (
             <div className={styles.fallbackBanner}>
@@ -346,22 +367,26 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
             </div>
           )}
 
-          <div className={styles.heroBadge}>भारत माता की जय</div>
+          <div className={styles.heroBadge}>
+            <span className={styles.badgeDot}>•</span> भारत माता की जय
+          </div>
 
           <div className={styles.logoRevealContainer}>
             <h1 ref={titleRef} className={styles.heroTitle}>
-              <span className={styles.titleLineSaffron}>{renderLetters("Empowering")}</span><br />
+              <span className={`${styles.titleLineSaffron} ${styles.italicWord}`}>{renderLetters("Empowering")}</span><br />
               <span className={styles.titleLineWhite}>{renderLetters("Youth")}</span>{" "}
               <span className={styles.titleLineWhite}>{renderLetters("to")}</span>{" "}
               <span className={styles.titleLineWhite}>{renderLetters("Build")}</span><br />
-              <span className={styles.titleLineWhite}>{renderLetters("a")}</span>{" "}
-              <span className={styles.titleLineSaffron}>{renderLetters("Stronger")}</span><br />
+              <span className={`${styles.titleLineWhite} ${styles.italicWord}`}>{renderLetters("a")}</span>{" "}
+              <span className={`${styles.titleLineSaffron} ${styles.italicWord}`}>{renderLetters("Stronger")}</span><br />
               <span className={styles.titleLineGreen}>{renderLetters("India.")}</span>
             </h1>
           </div>
 
+          <div className={styles.heroDiamond}>◆</div>
+
           <p ref={subtitleRef} className={styles.heroSubtitle}>
-            Think India Bihar — A forum of thinkers, innovators, and leaders who believe that India&apos;s best chapter is yet to be written, and that we will write it.
+            Think India Bihar — A forum of <strong>thinkers, innovators, and leaders</strong> who believe that India&apos;s best chapter is yet to be written, and that <strong>we will write it</strong>.
           </p>
 
           <div ref={ctaRef} className={styles.heroCta}>
@@ -405,10 +430,9 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
           </div>
         </div>
 
-
         <div className={styles.heroBackground}>
           <Image
-            src="/hero_bg_new.png"
+            src="/hero_bg.jpg"
             alt=""
             fill
             priority

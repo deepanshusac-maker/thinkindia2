@@ -180,6 +180,9 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Tricolour Stripe */}
+      <div className={styles.tricolourStripe} />
+
       {/* Mobile drawer */}
       <div
         className={`${styles.mobileMenu} ${mobileOpen ? styles.mobileMenuOpen : ""}`}

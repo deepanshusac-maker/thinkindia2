@@ -85,8 +85,8 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  /* Dark overlay at ~55% opacity to ensure high readability */
-  background: rgba(13, 13, 13, 0.55);
+  /* Subtle dark navy overlay at 30% to make constellations beautifully visible while ensuring rich text contrast */
+  background: rgba(8, 8, 15, 0.3);
   z-index: 2;
   display: block;
 }
@@ -116,13 +116,34 @@
 }
 
 .heroTitle {
-  font-size: clamp(3rem, 7vw, 5rem);
-  font-weight: 800;
-  line-height: 1.1;
+  font-family: 'Playfair Display', Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: clamp(3rem, 6.5vw, 4.75rem);
+  font-weight: 700;
+  line-height: 1.15;
   color: #FFFFFF;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.03em;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
   perspective: 1000px;
+}
+
+.italicWord {
+  font-style: italic;
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+.heroDiamond {
+  color: var(--color-saffron);
+  font-size: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.85;
+}
+
+.badgeDot {
+  color: var(--color-saffron);
+  margin-right: 0.35rem;
+  font-size: 0.9rem;
+  vertical-align: middle;
 }
 
 /* Tricolour Word Highlights */
@@ -136,6 +157,101 @@
 
 .titleLineGreen {
   color: var(--color-green);
+}
+
+/* Floating Left and Right Info Cards */
+.floatingCardLeft,
+.floatingCardRight {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  z-index: 10;
+  transition: transform 0.35s var(--ease-out), border-color 0.3s ease;
+  width: 240px;
+}
+
+.floatingCardLeft {
+  left: 5%;
+  top: 48%;
+  transform: translateY(-50%);
+}
+
+.floatingCardRight {
+  right: 5%;
+  top: 52%;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 1200px) {
+  .floatingCardLeft {
+    left: 2%;
+  }
+  .floatingCardRight {
+    right: 2%;
+  }
+}
+
+@media (max-width: 991px) {
+  .floatingCardLeft,
+  .floatingCardRight {
+    display: none;
+  }
+}
+
+.floatingCardLeft:hover,
+.floatingCardRight:hover {
+  transform: translateY(-53%) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.floatingCardIconSaffron,
+.floatingCardIconGreen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.floatingCardIconSaffron {
+  background: rgba(249, 115, 22, 0.1);
+  color: var(--color-saffron);
+  border: 1px solid rgba(249, 115, 22, 0.25);
+}
+
+.floatingCardIconGreen {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-green);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.floatingCardInfo {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.floatingCardInfo h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin-bottom: 0.15rem;
+}
+
+.floatingCardInfo p {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin: 0;
 }
 
 .brandWord {
