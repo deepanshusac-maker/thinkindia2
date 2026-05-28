@@ -912,3 +912,174 @@
     padding: 0.85rem 1.5rem;
   }
 }
+
+/* =============================================================
+   Flagship Initiatives Section — Tricolour Trifold Layout
+   ============================================================= */
+.initiativesSection {
+  background-color: #FAF8F5; /* Warm cream sand background */
+  padding: var(--section-py) var(--section-px);
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.03);
+}
+
+.initiativesContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.initiativesHeader {
+  margin-bottom: 3.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.initiativesLabelWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.initiativesLabelLine {
+  width: 1.25rem;
+  height: 2px;
+  background-color: var(--color-saffron);
+  border-radius: 2px;
+}
+
+.initiativesLabel {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-saffron);
+  line-height: 1;
+}
+
+.initiativesTitle {
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: #0F172A; /* Slate black */
+  font-family: var(--font-sans);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.initiativesTitleHighlight {
+  color: var(--color-saffron);
+}
+
+.initiativesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.25rem;
+}
+
+@media (max-width: 1024px) {
+  .initiativesGrid {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .initiativesGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .initiativesGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.initiativeCard {
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  border-radius: 12px;
+  padding: 2.75rem 2rem 2.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.015);
+  display: flex;
+  flex-direction: column;
+}
+
+.initiativeCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+.initiativeSaffron::before {
+  background-color: var(--color-saffron);
+}
+
+.initiativeWhite::before {
+  background-color: #94A3B8; /* Slate Blue representing Flag White & Chakra */
+}
+
+.initiativeGreen::before {
+  background-color: var(--color-green);
+}
+
+.initiativeCard:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.01);
+  border-color: rgba(15, 23, 42, 0.08);
+}
+
+.initiativeCardTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 5;
+}
+
+.initiativeCardDesc {
+  font-size: 0.9375rem;
+  color: #475569;
+  line-height: 1.65;
+  position: relative;
+  z-index: 5;
+}
+
+.initiativeNumber {
+  position: absolute;
+  top: 0.75rem;
+  right: 1.25rem;
+  font-size: 5.5rem;
+  font-weight: 800;
+  font-family: var(--font-serif);
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+  z-index: 1;
+}
+
+.initiativeSaffron .initiativeNumber {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(249, 115, 22, 0.08);
+}
+
+.initiativeWhite .initiativeNumber {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(148, 163, 184, 0.08);
+}
+
+.initiativeGreen .initiativeNumber {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(16, 185, 129, 0.08);
+}
+

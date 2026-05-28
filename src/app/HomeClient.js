@@ -471,6 +471,50 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
         </div>
       </section>
 
+      {/* Flagship Initiatives Section */}
+      <section id="initiatives" className={styles.initiativesSection}>
+        <div className={styles.initiativesContainer}>
+          <div className={styles.initiativesHeader}>
+            <div className={styles.initiativesLabelWrapper}>
+              <span className={styles.initiativesLabelLine} />
+              <span className={styles.initiativesLabel}>Long-term Work</span>
+            </div>
+            <h2 className={styles.initiativesTitle}>
+              Flagship <span className={styles.initiativesTitleHighlight}>Initiatives</span>
+            </h2>
+          </div>
+
+          <div className={styles.initiativesGrid}>
+            {/* Card 1: Policy Research Cell */}
+            <div className={`${styles.initiativeCard} ${styles.initiativeSaffron}`}>
+              <div className={styles.initiativeNumber}>01</div>
+              <h3 className={styles.initiativeCardTitle}>Policy Research Cell</h3>
+              <p className={styles.initiativeCardDesc}>
+                A dedicated cell producing policy briefs on education, agriculture, infrastructure, and digital governance — submitted to Think India's national convention and made available as open public research.
+              </p>
+            </div>
+
+            {/* Card 2: Rural Development Ideas */}
+            <div className={`${styles.initiativeCard} ${styles.initiativeWhite}`}>
+              <div className={styles.initiativeNumber}>02</div>
+              <h3 className={styles.initiativeCardTitle}>Rural Development Ideas</h3>
+              <p className={styles.initiativeCardDesc}>
+                Collaborative programs connecting Bihar's engineers and students with nearby rural communities to co-design practical, technology-enabled solutions to ground-level challenges in Bihar and beyond.
+              </p>
+            </div>
+
+            {/* Card 3: Cultural Awareness Campaigns */}
+            <div className={`${styles.initiativeCard} ${styles.initiativeGreen}`}>
+              <div className={styles.initiativeNumber}>03</div>
+              <h3 className={styles.initiativeCardTitle}>Cultural Awareness Campaigns</h3>
+              <p className={styles.initiativeCardDesc}>
+                Celebrating India's pluralism — our cultural campaigns explore regional heritage, art forms, and histories, fostering a sense of unified national identity rooted in respect for every tradition.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Institutes Grid Section */}
       <section id="institutes" className={styles.chaptersSection}>
         <div className={styles.sectionHeader}>
