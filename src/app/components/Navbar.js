@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { label: "Institutes", href: "/#institutes", section: "institutes" },
   { label: "Events", href: "/#events", section: "events" },
   { label: "Gallery", href: "/#gallery", section: "gallery" },
+  { label: "Contact", href: "/contact", section: null },
 ];
 
 /**

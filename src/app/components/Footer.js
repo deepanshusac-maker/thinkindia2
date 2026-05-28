@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaXTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa6";
+import { FaLinkedinIn, FaInstagram, FaWhatsapp } from "react-icons/fa6";
 import { Mail, MapPin, ExternalLink } from "lucide-react";
 import styles from "./Footer.module.css";
 
@@ -21,6 +21,7 @@ export default function Footer({ isInstitutePage = false, instituteName = "" }) 
     { label: "Institutes", href: isInstitutePage ? "/#institutes" : "#institutes" },
     { label: "Events", href: isInstitutePage ? "#events" : "#events" },
     { label: "Gallery", href: isInstitutePage ? "#gallery" : "#gallery" },
+    { label: "Contact Us", href: "/contact" },
   ];
 
   return (
@@ -69,9 +70,9 @@ export default function Footer({ isInstitutePage = false, instituteName = "" }) 
                 <MapPin size={16} className={styles.contactIcon} />
                 <span>Patna, Bihar, India</span>
               </div>
-              <a href="mailto:info@thinkindiabihar.org" className={styles.contactItemLink}>
+              <a href="mailto:thinkindia.01bihar@gmail.com" className={styles.contactItemLink}>
                 <Mail size={16} className={styles.contactIcon} />
-                <span>info@thinkindiabihar.org</span>
+                <span>thinkindia.01bihar@gmail.com</span>
               </a>
             </address>
 
@@ -79,16 +80,16 @@ export default function Footer({ isInstitutePage = false, instituteName = "" }) 
               <span className={styles.socialLabel}>Follow Us</span>
               <div className={styles.socialLinks}>
                 <a
-                  href="https://x.com/thinkindiaorg"
+                  href="https://www.instagram.com/thinkindia_bihar01?utm_source=qr&igsh=MWE0bnJhZ2FoaGhkNw=="
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
-                  aria-label="Twitter/X (Opens in a new tab)"
+                  aria-label="Instagram (Opens in a new tab)"
                 >
-                  <FaXTwitter size={16} />
+                  <FaInstagram size={16} />
                 </a>
                 <a
-                  href="https://www.linkedin.com/company/think-india/"
+                  href="https://www.linkedin.com/company/think-india-bihar/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
@@ -97,13 +98,13 @@ export default function Footer({ isInstitutePage = false, instituteName = "" }) 
                   <FaLinkedinIn size={16} />
                 </a>
                 <a
-                  href="https://www.instagram.com/thinkindiaorg/"
+                  href="https://whatsapp.com/channel/0029VbCRjefEgGfT4b11hK2H"
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.socialLink}
-                  aria-label="Instagram (Opens in a new tab)"
+                  aria-label="WhatsApp Channel (Opens in a new tab)"
                 >
-                  <FaInstagram size={16} />
+                  <FaWhatsapp size={16} />
                 </a>
               </div>
             </div>
