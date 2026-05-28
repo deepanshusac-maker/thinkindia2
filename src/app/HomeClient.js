@@ -19,6 +19,50 @@ const INSTITUTE_IMAGES = {
   "nift-patna": "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop",
 };
 
+function AnimatedNumber({ value, suffix = "", duration = 1500 }) {
+  const [count, setCount] = useState(0);
+  const elementRef = useRef(null);
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          let startTimestamp = null;
+          const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const easeProgress = progress * (2 - progress);
+            setCount(Math.floor(easeProgress * value));
+            if (progress < 1) {
+              window.requestAnimationFrame(step);
+            } else {
+              setCount(value);
+            }
+          };
+          window.requestAnimationFrame(step);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentRef = elementRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [value, duration]);
+
+  return <span ref={elementRef}>{count}{suffix}</span>;
+}
+
 export default function HomeClient({ institutes, events, gallery, usingMockData }) {
   const heroRef = useRef(null);
   const titleRef = useRef(null);
@@ -332,22 +376,30 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
           {/* Stats Row */}
           <div className={styles.statsRow}>
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>{institutes.length}</span>
+              <span className={styles.statNumber}>
+                <AnimatedNumber value={institutes.length} />
+              </span>
               <span className={styles.statLabel}>Premier Chapters</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>{events.length}+</span>
+              <span className={styles.statNumber}>
+                <AnimatedNumber value={events.length} suffix="+" />
+              </span>
               <span className={styles.statLabel}>Active Events</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>1500+</span>
+              <span className={styles.statNumber}>
+                <AnimatedNumber value={1500} suffix="+" />
+              </span>
               <span className={styles.statLabel}>Youth Thinkers</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
-              <span className={styles.statNumber}>100%</span>
+              <span className={styles.statNumber}>
+                <AnimatedNumber value={100} suffix="%" />
+              </span>
               <span className={styles.statLabel}>Patriotic Focus</span>
             </div>
           </div>

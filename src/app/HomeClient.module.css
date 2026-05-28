@@ -44,7 +44,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(to right, #F97316 0%, #F97316 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, #22C55E 66.6%, #22C55E 100%);
+  background: linear-gradient(to right, #F97316 0%, #F97316 33.3%, #FFFFFF 33.3%, #FFFFFF 66.6%, var(--color-green) 66.6%, var(--color-green) 100%);
   z-index: 20;
 }
 
@@ -54,7 +54,7 @@
   border: 1px solid rgba(249, 115, 22, 0.35);
   border-radius: 999px;
   padding: 6px 18px;
-  font-size: 11px;
+  font-size: 0.6875rem;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -135,7 +135,7 @@
 }
 
 .titleLineGreen {
-  color: #22C55E;
+  color: var(--color-green);
 }
 
 .brandWord {
@@ -176,7 +176,7 @@
   border-radius: var(--radius-md);
   background: var(--color-saffron);
   color: #FFFFFF;
-  font-weight: 800;
+  font-weight: var(--font-bold);
   font-size: 0.9375rem;
   box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 8px 16px rgba(249, 115, 22, 0.15);
   transition: transform 0.2s var(--ease-out), background-color 0.2s ease, box-shadow 0.2s ease;
@@ -242,7 +242,7 @@
 }
 
 .statLabel {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -289,7 +289,22 @@
   font-size: clamp(2rem, 4vw, 2.75rem);
   font-weight: var(--font-bold);
   color: var(--color-navy);
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.sectionTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3.5px;
+  background: var(--gradient-accent);
+  border-radius: 2px;
 }
 
 .sectionTitleDot {

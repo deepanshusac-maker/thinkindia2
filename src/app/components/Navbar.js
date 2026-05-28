@@ -36,6 +36,7 @@ export default function Navbar() {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState(null);
 
@@ -50,6 +51,9 @@ export default function Navbar() {
       // Progress
       const progress = docHeight > 0 ? (currentY / docHeight) * 100 : 0;
       setScrollProgress(Math.min(progress, 100));
+
+      // Scrolled state
+      setScrolled(currentY > 20);
 
       // Smart sticky — hide when scrolling down past 100px, show on scroll-up
       if (currentY > 100 && currentY > lastScrollY.current) {
@@ -118,7 +122,7 @@ export default function Navbar() {
   // ──────────────────────────────────────────────
   return (
     <nav
-      className={`${styles.navbar} ${hidden ? styles.navHidden : ""}`}
+      className={`${styles.navbar} ${hidden ? styles.navHidden : ""} ${scrolled ? styles.navbarScrolled : ""}`}
       role="navigation"
       aria-label="Main navigation"
     >

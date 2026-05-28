@@ -25,8 +25,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={outfit.variable}>
       <body>
+        <a href="#main-content" className="sr-only skip-link">
+          Skip to content
+        </a>
         <ClientAnimationsProvider>
-          {children}
+          <div id="main-content">
+            {children}
+          </div>
         </ClientAnimationsProvider>
       </body>
     </html>

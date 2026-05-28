@@ -117,6 +117,30 @@ button {
   border: 0;
 }
 
+/* ---- Accessibility: Skip to Content Link ---- */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 1.5rem;
+  background: var(--gradient-accent);
+  color: #ffffff !important;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: var(--font-bold);
+  z-index: 99999;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  transition: transform 0.25s var(--ease-out), top 0.25s var(--ease-out);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.skip-link:focus {
+  top: 0;
+  outline: none;
+  transform: translateY(0);
+}
+
 /* =============================================================
    Modern Heritage Theme & Public Utilities
    ============================================================= */

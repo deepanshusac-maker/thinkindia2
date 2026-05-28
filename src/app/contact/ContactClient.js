@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "./contact.module.css";
@@ -52,6 +53,83 @@ const CONTACT_ITEMS = [
 ];
 
 export default function ContactClient() {
+  const heroPillRef = useRef(null);
+  const heroTitleRef = useRef(null);
+  const heroSubRef = useRef(null);
+  const cardsGridRef = useRef(null);
+
+  useEffect(() => {
+    let gsapInstance;
+    let ScrollTriggerInstance;
+
+    async function initAnimations() {
+      const gsapModule = await import("gsap");
+      const scrollTriggerModule = await import("gsap/ScrollTrigger");
+
+      gsapInstance = gsapModule.gsap;
+      ScrollTriggerInstance = scrollTriggerModule.ScrollTrigger;
+      
+      gsapInstance.registerPlugin(ScrollTriggerInstance);
+
+      // Hero anim timeline
+      const tl = gsapInstance.timeline();
+
+      if (heroPillRef.current) {
+        tl.fromTo(
+          heroPillRef.current,
+          { opacity: 0, y: -15 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" }
+        );
+      }
+
+      if (heroTitleRef.current) {
+        tl.fromTo(
+          heroTitleRef.current,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+          "-=0.45"
+        );
+      }
+
+      if (heroSubRef.current) {
+        tl.fromTo(
+          heroSubRef.current,
+          { opacity: 0, y: 15 },
+          { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+          "-=0.45"
+        );
+      }
+
+      // Staggered cards reveal
+      if (cardsGridRef.current) {
+        gsapInstance.fromTo(
+          cardsGridRef.current.children,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.12,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: cardsGridRef.current,
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+    }
+
+    initAnimations();
+
+    return () => {
+      if (ScrollTriggerInstance) {
+        ScrollTriggerInstance.getAll().forEach((t) => t.kill());
+      }
+    };
+  }, []);
+
   return (
     <div className={`modern-heritage ${styles.page}`}>
       <Navbar />
@@ -60,12 +138,12 @@ export default function ContactClient() {
         {/* ── Hero Banner ── */}
         <section className={styles.hero}>
           <div className={styles.heroInner}>
-            <span className={styles.heroPill}>Get In Touch</span>
-            <h1 className={styles.heroTitle}>
+            <span ref={heroPillRef} className={styles.heroPill}>Get In Touch</span>
+            <h1 ref={heroTitleRef} className={styles.heroTitle}>
               Connect With{" "}
               <span className={styles.heroAccent}>Think India Bihar</span>
             </h1>
-            <p className={styles.heroSub}>
+            <p ref={heroSubRef} className={styles.heroSub}>
               Whether you&rsquo;re a student eager to join, a researcher
               looking to collaborate, or a partner with a shared vision — we
               would love to hear from you.
@@ -77,7 +155,7 @@ export default function ContactClient() {
 
         {/* ── Contact Cards Grid ── */}
         <section className={styles.cardsSection}>
-          <div className={styles.cardsGrid}>
+          <div ref={cardsGridRef} className={styles.cardsGrid}>
             {CONTACT_ITEMS.map((item) => (
               <a
                 key={item.id}
