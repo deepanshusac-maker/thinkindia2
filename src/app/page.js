@@ -26,7 +26,10 @@ export default async function HomePage() {
       isFallback = true;
     }
   } catch (error) {
-    console.error("Failed to fetch live homepage data from Supabase:", error);
+    console.error(
+      "Failed to fetch live homepage data from Supabase:",
+      error?.message || error?.details || (typeof error === "object" ? JSON.stringify(error) : error)
+    );
     isFallback = true;
   }
 

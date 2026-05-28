@@ -67,7 +67,11 @@ export default async function InstitutePage({ params }) {
       isFallback = true;
     }
   } catch (error) {
-    console.error("Failed to load live data for slug:", slug, error);
+    console.error(
+      "Failed to load live data for slug:",
+      slug,
+      error?.message || error?.details || (typeof error === "object" ? JSON.stringify(error) : error)
+    );
     isFallback = true;
   }
 
