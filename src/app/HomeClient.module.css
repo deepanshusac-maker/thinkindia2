@@ -30,13 +30,6 @@
   width: 100%;
 }
 
-@media (max-width: 768px) {
-  .hero {
-    min-height: auto;
-    padding-top: 5rem;
-    padding-bottom: 4rem;
-  }
-}
 
 .tricolourStripe {
   position: absolute;
@@ -785,7 +778,79 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+  }
+
   .heroOverlay {
-    background: rgba(8, 8, 15, 0.65) !important;
+    /* Immersive vertical gradient overlay for mobile portait viewing */
+    background: linear-gradient(to bottom, rgba(8, 8, 15, 0.8) 0%, rgba(8, 8, 15, 0.55) 50%, rgba(8, 8, 15, 0.75) 100%) !important;
+  }
+
+  .heroTitle {
+    font-size: clamp(2.1rem, 8vw, 3.2rem);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  .heroSubtitle {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+
+  .statsRow {
+    flex-wrap: wrap;
+    border-radius: 16px;
+    margin-top: 2.5rem;
+    padding: 0.5rem;
+  }
+
+  .statDivider {
+    display: none;
+  }
+
+  .statItem {
+    flex: 0 0 50%;
+    padding: 16px 8px;
+  }
+
+  .statNumber {
+    font-size: 30px;
+    margin-bottom: 4px;
+  }
+
+  .statLabel {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 6rem;
+    padding-bottom: 4rem;
+  }
+
+  .heroTitle {
+    font-size: 2.1rem;
+  }
+
+  .heroCta {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .btnPrimary,
+  .btnSecondary {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1.5rem;
   }
 }
