@@ -11,12 +11,12 @@ import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./HomeClient.module.css";
 
 const INSTITUTE_IMAGES = {
-  "nit-patna": "/images/nitp.jpeg",
-  "iit-patna": "/images/iitp.jpeg",
-  "iim-bodhgaya": "/images/iim bhodgaya.jpeg",
-  "cnlu-patna": "/images/cnlu.jpeg",
-  "iiit-bhagalpur": "/images/iiit bhagalpur.jpeg",
-  "nift-patna": "/images/nift patna.jpeg",
+  "nit-patna": "/images/nit-patna.jpeg",
+  "iit-patna": "/images/iit-patna.jpeg",
+  "iim-bodhgaya": "/images/iim-bodhgaya.jpeg",
+  "cnlu-patna": "/images/cnlu-patna.jpeg",
+  "iiit-bhagalpur": "/images/iiit-bhagalpur.jpeg",
+  "nift-patna": "/images/nift-patna.jpeg",
 };
 
 function AnimatedNumber({ value, suffix = "", duration = 1500 }) {
@@ -408,7 +408,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
         <div className={styles.heroBackground}>
           <Image
-            src="/hero_bg.png"
+            src="/hero_bg.jpg"
             alt=""
             fill
             priority
@@ -490,7 +490,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
         <div ref={gridRef} className={styles.grid}>
           {institutes.map((inst) => {
-            const imageUrl = inst.image_url || INSTITUTE_IMAGES[inst.slug] || "/hero_bg.png";
+            const imageUrl = inst.image_url || INSTITUTE_IMAGES[inst.slug] || "/hero_bg.jpg";
             return (
               <Link key={inst.id} href={`/institute/${inst.slug}`}>
                 <div className={`${styles.card} institute-card`}>

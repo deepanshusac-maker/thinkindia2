@@ -9,18 +9,18 @@ import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./InstituteClient.module.css";
 const INSTITUTE_IMAGES = {
-  "nit-patna": "/images/nitp.jpeg",
-  "iit-patna": "/images/iitp.jpeg",
-  "iim-bodhgaya": "/images/iim bhodgaya.jpeg",
-  "cnlu-patna": "/images/cnlu.jpeg",
-  "iiit-bhagalpur": "/images/iiit bhagalpur.jpeg",
-  "nift-patna": "/images/nift patna.jpeg",
+  "nit-patna": "/images/nit-patna.jpeg",
+  "iit-patna": "/images/iit-patna.jpeg",
+  "iim-bodhgaya": "/images/iim-bodhgaya.jpeg",
+  "cnlu-patna": "/images/cnlu-patna.jpeg",
+  "iiit-bhagalpur": "/images/iiit-bhagalpur.jpeg",
+  "nift-patna": "/images/nift-patna.jpeg",
 };
 
 export default function InstituteClient({ institute, team, events, gallery, usingMockData }) {
   const carouselTrackRef = useRef(null);
   const aboutSectionRef = useRef(null);
-  const imageUrl = institute.image_url || INSTITUTE_IMAGES[institute.slug] || "/hero_bg.png";
+  const imageUrl = institute.image_url || INSTITUTE_IMAGES[institute.slug] || "/hero_bg.jpg";
   const teamSectionRef = useRef(null);
   const eventsSectionRef = useRef(null);
   const gallerySectionRef = useRef(null);
