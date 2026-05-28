@@ -26,10 +26,16 @@
 
 /* ---- Hero Section ---- */
 .hero {
-  padding: 1.5rem var(--section-px) 3rem;
+  padding: 1.5rem var(--section-px) 3.5rem;
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
+}
+
+.heroContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .backBtn {
@@ -39,11 +45,12 @@
   color: var(--color-text-muted);
   font-size: 0.9rem;
   font-weight: 600;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   transition: all 0.2s ease;
   cursor: pointer;
   background: none;
   border: none;
+  align-self: flex-start;
 }
 
 .backBtn:hover {
@@ -51,8 +58,56 @@
   transform: translateX(-4px);
 }
 
+.heroSplit {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3.5rem;
+  align-items: center;
+}
+
+@media (max-width: 991px) {
+  .heroSplit {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
 .heroContent {
-  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.heroVisual {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-border);
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+.heroVisual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-xl);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.05);
+  pointer-events: none;
+}
+
+.heroVisual:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 48px rgba(249, 115, 22, 0.08), var(--shadow-xl);
+  border-color: var(--color-border-hover);
+}
+
+.visualFrame {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .chapterLabel {

@@ -11,12 +11,12 @@ import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./HomeClient.module.css";
 
 const INSTITUTE_IMAGES = {
-  "nit-patna": "https://images.unsplash.com/photo-1562774053-701939374585?q=80&w=800&auto=format&fit=crop",
-  "iit-patna": "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop",
-  "iim-bodhgaya": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=800&auto=format&fit=crop",
-  "cnlu-patna": "https://images.unsplash.com/photo-1498243691219-0f41f5911f75?q=80&w=800&auto=format&fit=crop",
-  "iiit-bhagalpur": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop",
-  "nift-patna": "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=800&auto=format&fit=crop",
+  "nit-patna": "/images/nitp.jpeg",
+  "iit-patna": "/images/iitp.jpeg",
+  "iim-bodhgaya": "/images/iim bhodgaya.jpeg",
+  "cnlu-patna": "/images/cnlu.jpeg",
+  "iiit-bhagalpur": "/images/iiit bhagalpur.jpeg",
+  "nift-patna": "/images/nift patna.jpeg",
 };
 
 function AnimatedNumber({ value, suffix = "", duration = 1500 }) {

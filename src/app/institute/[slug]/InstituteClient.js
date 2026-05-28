@@ -8,10 +8,19 @@ import Footer from "@/app/components/Footer";
 import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./InstituteClient.module.css";
+const INSTITUTE_IMAGES = {
+  "nit-patna": "/images/nitp.jpeg",
+  "iit-patna": "/images/iitp.jpeg",
+  "iim-bodhgaya": "/images/iim bhodgaya.jpeg",
+  "cnlu-patna": "/images/cnlu.jpeg",
+  "iiit-bhagalpur": "/images/iiit bhagalpur.jpeg",
+  "nift-patna": "/images/nift patna.jpeg",
+};
 
 export default function InstituteClient({ institute, team, events, gallery, usingMockData }) {
   const carouselTrackRef = useRef(null);
   const aboutSectionRef = useRef(null);
+  const imageUrl = institute.image_url || INSTITUTE_IMAGES[institute.slug] || "/hero_bg.png";
   const teamSectionRef = useRef(null);
   const eventsSectionRef = useRef(null);
   const gallerySectionRef = useRef(null);
@@ -245,10 +254,23 @@ export default function InstituteClient({ institute, team, events, gallery, usin
             <span>Back to Institutes</span>
           </Link>
           
-          <div ref={aboutSectionRef} className={styles.heroContent}>
-            <span className={styles.chapterLabel}>Think India Institute</span>
-            <h1 className={styles.title}>{institute.name}</h1>
-            <p className={styles.aboutText}>{institute.about_text}</p>
+          <div className={styles.heroSplit}>
+            <div ref={aboutSectionRef} className={styles.heroContent}>
+              <span className={styles.chapterLabel}>Think India Institute</span>
+              <h1 className={styles.title}>{institute.name}</h1>
+              <p className={styles.aboutText}>{institute.about_text}</p>
+            </div>
+            
+            <div className={styles.heroVisual}>
+              <div className={styles.visualFrame}>
+                <SkeletonImage
+                  src={imageUrl}
+                  alt={`${institute.name} Campus`}
+                  style={{ width: "100%", height: "100%" }}
+                  priority
+                />
+              </div>
+            </div>
           </div>
         </div>
       </header>
