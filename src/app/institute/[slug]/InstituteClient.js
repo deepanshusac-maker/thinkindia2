@@ -271,7 +271,7 @@ export default function InstituteClient({ institute, team, events, gallery, usin
                   <SkeletonImage
                     src={logoUrl}
                     alt={`${institute.name} Logo`}
-                    style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
                 </div>
               )}
