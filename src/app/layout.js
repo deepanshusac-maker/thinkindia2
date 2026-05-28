@@ -1,4 +1,4 @@
-import { Outfit } from "next/font/google";
+import { Outfit, Cormorant_Garamond } from "next/font/google";
 import ClientAnimationsProvider from "@/app/components/ClientAnimationsProvider";
 import "./globals.css";
 
@@ -6,6 +6,14 @@ const outfit = Outfit({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
   variable: "--font-outfit",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
   display: "swap",
 });
 
@@ -23,7 +31,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={outfit.variable}>
+    <html lang="en" className={`${outfit.variable} ${cormorant.variable}`}>
       <body>
         <a href="#main-content" className="sr-only skip-link">
           Skip to content

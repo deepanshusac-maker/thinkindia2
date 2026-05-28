@@ -3,12 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock, Leaf } from "lucide-react";
+import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./HomeClient.module.css";
+import { motion } from "framer-motion";
 
 const INSTITUTE_IMAGES = {
   "nit-patna": "/images/nit-patna.jpeg",
@@ -19,48 +20,27 @@ const INSTITUTE_IMAGES = {
   "nift-patna": "/images/nift-patna.jpeg",
 };
 
-function AnimatedNumber({ value, suffix = "", duration = 1500 }) {
+function AnimatedNumber({ value, suffix = "", duration = 1800 }) {
   const [count, setCount] = useState(0);
-  const elementRef = useRef(null);
-  const hasAnimated = useRef(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries;
-        if (entry.isIntersecting && !hasAnimated.current) {
-          hasAnimated.current = true;
-          let startTimestamp = null;
-          const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const easeProgress = progress * (2 - progress);
-            setCount(Math.floor(easeProgress * value));
-            if (progress < 1) {
-              window.requestAnimationFrame(step);
-            } else {
-              setCount(value);
-            }
-          };
-          window.requestAnimationFrame(step);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const currentRef = elementRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      // ease-out cubic: f(t) = 1 - (1 - t)^3
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.floor(easeProgress * value));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      } else {
+        setCount(value);
       }
     };
+    window.requestAnimationFrame(step);
   }, [value, duration]);
 
-  return <span ref={elementRef}>{count}{suffix}</span>;
+  return <span>{count}{suffix}</span>;
 }
 
 export default function HomeClient({ institutes, events, gallery, usingMockData }) {
@@ -336,29 +316,8 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
 
       {/* Hero Section */}
       <section ref={heroRef} className={styles.hero}>
+        <div className={styles.tricolourStripe} />
         
-        {/* Floating Left Card */}
-        <div className={styles.floatingCardLeft}>
-          <div className={styles.floatingCardIconSaffron}>
-            <Building2 size={20} />
-          </div>
-          <div className={styles.floatingCardInfo}>
-            <h4>50+ Institutes</h4>
-            <p>Across Bihar</p>
-          </div>
-        </div>
-
-        {/* Floating Right Card */}
-        <div className={styles.floatingCardRight}>
-          <div className={styles.floatingCardIconGreen}>
-            <Leaf size={20} />
-          </div>
-          <div className={styles.floatingCardInfo}>
-            <h4>Nation Builders</h4>
-            <p>Est. 2018</p>
-          </div>
-        </div>
-
         <div className={styles.heroContent}>
           {usingMockData && (
             <div className={styles.fallbackBanner}>
@@ -367,26 +326,22 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
             </div>
           )}
 
-          <div className={styles.heroBadge}>
-            <span className={styles.badgeDot}>•</span> भारत माता की जय
-          </div>
+          <div className={styles.heroBadge}>भारत माता की जय</div>
 
           <div className={styles.logoRevealContainer}>
             <h1 ref={titleRef} className={styles.heroTitle}>
-              <span className={`${styles.titleLineSaffron} ${styles.italicWord}`}>{renderLetters("Empowering")}</span><br />
+              <span className={styles.titleLineSaffron}>{renderLetters("Empowering")}</span><br />
               <span className={styles.titleLineWhite}>{renderLetters("Youth")}</span>{" "}
               <span className={styles.titleLineWhite}>{renderLetters("to")}</span>{" "}
               <span className={styles.titleLineWhite}>{renderLetters("Build")}</span><br />
-              <span className={`${styles.titleLineWhite} ${styles.italicWord}`}>{renderLetters("a")}</span>{" "}
-              <span className={`${styles.titleLineSaffron} ${styles.italicWord}`}>{renderLetters("Stronger")}</span><br />
+              <span className={styles.titleLineWhite}>{renderLetters("a")}</span>{" "}
+              <span className={styles.titleLineSaffron}>{renderLetters("Stronger")}</span><br />
               <span className={styles.titleLineGreen}>{renderLetters("India.")}</span>
             </h1>
           </div>
 
-          <div className={styles.heroDiamond}>◆</div>
-
           <p ref={subtitleRef} className={styles.heroSubtitle}>
-            Think India Bihar — A forum of <strong>thinkers, innovators, and leaders</strong> who believe that India&apos;s best chapter is yet to be written, and that <strong>we will write it</strong>.
+            Think India Bihar — A forum of thinkers, innovators, and leaders who believe that India&apos;s best chapter is yet to be written, and that we will write it.
           </p>
 
           <div ref={ctaRef} className={styles.heroCta}>
@@ -399,40 +354,46 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
           </div>
 
           {/* Stats Row */}
-          <div className={styles.statsRow}>
+          <motion.div
+            className={styles.statsRow}
+            initial={{ opacity: 0, y: 28 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.65, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className={styles.statItem}>
               <span className={styles.statNumber}>
-                <AnimatedNumber value={institutes.length} />
+                <AnimatedNumber value={50} suffix="+" />
               </span>
-              <span className={styles.statLabel}>Premier Chapters</span>
+              <span className={styles.statLabel}>Partner Institutes</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
               <span className={styles.statNumber}>
-                <AnimatedNumber value={events.length} suffix="+" />
+                <AnimatedNumber value={10} suffix="K+" />
               </span>
-              <span className={styles.statLabel}>Active Events</span>
+              <span className={styles.statLabel}>Youth Empowered</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
               <span className={styles.statNumber}>
-                <AnimatedNumber value={1500} suffix="+" />
+                <AnimatedNumber value={38} />
               </span>
-              <span className={styles.statLabel}>Youth Thinkers</span>
+              <span className={styles.statLabel}>Districts Reached</span>
             </div>
             <div className={styles.statDivider} />
             <div className={styles.statItem}>
               <span className={styles.statNumber}>
-                <AnimatedNumber value={100} suffix="%" />
+                <AnimatedNumber value={200} suffix="+" />
               </span>
-              <span className={styles.statLabel}>Patriotic Focus</span>
+              <span className={styles.statLabel}>Events Hosted</span>
             </div>
-          </div>
+          </motion.div>
         </div>
+
 
         <div className={styles.heroBackground}>
           <Image
-            src="/hero_bg.jpg"
+            src="/hero_bg_new.png"
             alt=""
             fill
             priority

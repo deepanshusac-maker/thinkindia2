@@ -85,8 +85,8 @@
 .heroOverlay {
   position: absolute;
   inset: 0;
-  /* Subtle dark navy overlay at 30% to make constellations beautifully visible while ensuring rich text contrast */
-  background: rgba(8, 8, 15, 0.3);
+  /* Dark overlay at ~55% opacity to ensure high readability */
+  background: rgba(13, 13, 13, 0.55);
   z-index: 2;
   display: block;
 }
@@ -116,142 +116,31 @@
 }
 
 .heroTitle {
-  font-family: 'Playfair Display', Georgia, Cambria, "Times New Roman", Times, serif;
-  font-size: clamp(3rem, 6.5vw, 4.75rem);
-  font-weight: 700;
-  line-height: 1.15;
+  font-size: clamp(3rem, 7vw, 5rem);
+  font-family: var(--font-serif);
+  line-height: 1.1;
   color: #FFFFFF;
-  margin-bottom: 1.5rem;
-  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em; /* Clean, elegant serif spacing */
   perspective: 1000px;
-}
-
-.italicWord {
-  font-style: italic;
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
-.heroDiamond {
-  color: var(--color-saffron);
-  font-size: 1.25rem;
-  margin-top: 0.5rem;
-  margin-bottom: 2rem;
-  opacity: 0.85;
-}
-
-.badgeDot {
-  color: var(--color-saffron);
-  margin-right: 0.35rem;
-  font-size: 0.9rem;
-  vertical-align: middle;
 }
 
 /* Tricolour Word Highlights */
 .titleLineWhite {
   color: #FFFFFF;
+  font-weight: 300; /* Light weight */
 }
 
 .titleLineSaffron {
   color: #F97316;
+  font-weight: 600; /* Semibold weight */
+  font-style: italic; /* Luxury editorial italic */
 }
 
 .titleLineGreen {
   color: var(--color-green);
-}
-
-/* Floating Left and Right Info Cards */
-.floatingCardLeft,
-.floatingCardRight {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  z-index: 10;
-  transition: transform 0.35s var(--ease-out), border-color 0.3s ease;
-  width: 240px;
-}
-
-.floatingCardLeft {
-  left: 5%;
-  top: 48%;
-  transform: translateY(-50%);
-}
-
-.floatingCardRight {
-  right: 5%;
-  top: 52%;
-  transform: translateY(-50%);
-}
-
-@media (max-width: 1200px) {
-  .floatingCardLeft {
-    left: 2%;
-  }
-  .floatingCardRight {
-    right: 2%;
-  }
-}
-
-@media (max-width: 991px) {
-  .floatingCardLeft,
-  .floatingCardRight {
-    display: none;
-  }
-}
-
-.floatingCardLeft:hover,
-.floatingCardRight:hover {
-  transform: translateY(-53%) scale(1.02);
-  border-color: rgba(255, 255, 255, 0.15);
-}
-
-.floatingCardIconSaffron,
-.floatingCardIconGreen {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-md);
-  flex-shrink: 0;
-}
-
-.floatingCardIconSaffron {
-  background: rgba(249, 115, 22, 0.1);
-  color: var(--color-saffron);
-  border: 1px solid rgba(249, 115, 22, 0.25);
-}
-
-.floatingCardIconGreen {
-  background: rgba(16, 185, 129, 0.1);
-  color: var(--color-green);
-  border: 1px solid rgba(16, 185, 129, 0.25);
-}
-
-.floatingCardInfo {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-}
-
-.floatingCardInfo h4 {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #FFFFFF;
-  margin-bottom: 0.15rem;
-}
-
-.floatingCardInfo p {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
+  font-weight: 700; /* Bold weight */
+  font-style: italic; /* Luxury editorial italic */
 }
 
 .brandWord {
@@ -334,55 +223,66 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 2rem;
-  margin-top: 4rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  max-width: 840px;
   width: 100%;
-  opacity: 0;
-  animation: modalFadeIn 0.8s var(--ease-out) forwards;
-  animation-delay: 0.5s;
+  margin-top: 4rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
 .statItem {
+  flex: 1;
+  padding: 28px 24px;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .statNumber {
-  font-size: 2.25rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-size: 42px;
+  font-weight: 600; /* Semibold Cormorant Garamond */
+  font-family: var(--font-serif);
+  color: #FF8534; /* Saffron light */
   line-height: 1;
-  margin-bottom: 0.4rem;
+  margin-bottom: 6px;
 }
 
 .statLabel {
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: var(--font-sans); /* Outfit */
+  color: rgba(255, 255, 255, 0.35);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--color-saffron);
+  line-height: 1.2;
 }
 
 .statDivider {
   width: 1px;
-  height: 36px;
-  background-color: rgba(255, 255, 255, 0.15);
+  height: 50px; /* Vertically centered divider (60% height) */
+  background-color: rgba(255, 255, 255, 0.07);
+  align-self: center;
+  flex-shrink: 0;
 }
-
-
 
 @media (max-width: 768px) {
   .statsRow {
-    gap: 1.5rem;
+    flex-wrap: wrap; /* 2x2 layout on mobile */
+    border-radius: 16px;
     margin-top: 3rem;
   }
   .statDivider {
     display: none;
   }
   .statItem {
-    flex: 0 0 calc(50% - 1rem);
+    flex: 0 0 50%;
+    padding: 20px 16px;
   }
 }
 
