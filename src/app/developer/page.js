@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaEnvelope, FaArrowLeft, FaCode, FaHeart, FaFire } from "react-icons/fa";
 import styles from "./Developer.module.css";
@@ -169,10 +170,10 @@ export default function DeveloperPage() {
           {/* Header navigation bar */}
           <header className={styles.navHeader}>
             <div className={styles.navLogo}>DS // Sanctuary</div>
-            <a href="/" className={styles.navLink}>
+            <Link href="/" className={styles.navLink}>
               <FaArrowLeft style={{ marginRight: "0.5rem", verticalAlign: "middle" }} />
               Return to Site
-            </a>
+            </Link>
           </header>
 
           <main className={styles.mainContent}>
@@ -265,7 +266,7 @@ export default function DeveloperPage() {
                   <div className={styles.devRole}>Full Stack Craftsman</div>
                   
                   <p className={styles.cardText} style={{ fontSize: "0.85rem", opacity: 0.8 }}>
-                    "Code is the medium through which we shape reality. True engineering requires both mathematical precision and artistic determination."
+                    &quot;Code is the medium through which we shape reality. True engineering requires both mathematical precision and artistic determination.&quot;
                   </p>
 
                   <div className={styles.statsGrid}>
@@ -303,10 +304,10 @@ export default function DeveloperPage() {
 
             {/* Bottom high-fidelity CTAs */}
             <div className={styles.actionsRow}>
-              <a href="/" className={styles.secondaryBtn}>
+              <Link href="/" className={styles.secondaryBtn}>
                 <FaArrowLeft />
                 Return to Homepage
-              </a>
+              </Link>
               <a
                 href="https://github.com/deepanshusac-maker"
                 target="_blank"

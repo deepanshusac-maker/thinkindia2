@@ -21,10 +21,11 @@ const INSTITUTE_IMAGES = {
   "nift-patna": "/images/nift-patna.jpeg",
 };
 
-function AnimatedNumber({ value, suffix = "", duration = 1800 }) {
+function AnimatedNumber({ value, suffix = "", duration = 1800, trigger = false }) {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    if (!trigger) return;
     let startTimestamp = null;
     const step = (timestamp) => {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -39,7 +40,7 @@ function AnimatedNumber({ value, suffix = "", duration = 1800 }) {
       }
     };
     window.requestAnimationFrame(step);
-  }, [value, duration]);
+  }, [value, duration, trigger]);
 
   return <span>{count}{suffix}</span>;
 }
@@ -370,28 +371,28 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
             >
               <div className={styles.statItem}>
                 <span className={styles.statNumber}>
-                  <AnimatedNumber value={50} suffix="+" />
+                  <AnimatedNumber value={50} suffix="+" trigger={introCompleted} />
                 </span>
                 <span className={styles.statLabel}>Partner Institutes</span>
               </div>
               <div className={styles.statDivider} />
               <div className={styles.statItem}>
                 <span className={styles.statNumber}>
-                  <AnimatedNumber value={10} suffix="K+" />
+                  <AnimatedNumber value={10} suffix="K+" trigger={introCompleted} />
                 </span>
                 <span className={styles.statLabel}>Youth Empowered</span>
               </div>
               <div className={styles.statDivider} />
               <div className={styles.statItem}>
                 <span className={styles.statNumber}>
-                  <AnimatedNumber value={38} />
+                  <AnimatedNumber value={38} trigger={introCompleted} />
                 </span>
                 <span className={styles.statLabel}>Districts Reached</span>
               </div>
               <div className={styles.statDivider} />
               <div className={styles.statItem}>
                 <span className={styles.statNumber}>
-                  <AnimatedNumber value={200} suffix="+" />
+                  <AnimatedNumber value={200} suffix="+" trigger={introCompleted} />
                 </span>
                 <span className={styles.statLabel}>Events Hosted</span>
               </div>
@@ -424,7 +425,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
                 Fostering Nationalist Youth Leadership<span className={styles.sectionTitleDot}>.</span>
               </h2>
               <p className={styles.aboutText}>
-                Think India is a vibrant forum of students, researchers, and young professionals from premier institutes of national importance (IITs, IIMs, NITs, NLUs, and others). We believe that India's greatest chapter is yet to be written. We are dedicated to creating a generation of nationalist leaders, policy thinkers, and social innovators who work collectively towards national development, social harmony, and the realization of India's potential.
+                Think India is a vibrant forum of students, researchers, and young professionals from premier institutes of national importance (IITs, IIMs, NITs, NLUs, and others). We believe that India&apos;s greatest chapter is yet to be written. We are dedicated to creating a generation of nationalist leaders, policy thinkers, and social innovators who work collectively towards national development, social harmony, and the realization of India&apos;s potential.
               </p>
               
               <div className={styles.pillarsGrid}>
@@ -490,7 +491,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
               <div className={styles.initiativeNumber}>01</div>
               <h3 className={styles.initiativeCardTitle}>Policy Research Cell</h3>
               <p className={styles.initiativeCardDesc}>
-                A dedicated cell producing policy briefs on education, agriculture, infrastructure, and digital governance — submitted to Think India's national convention and made available as open public research.
+                A dedicated cell producing policy briefs on education, agriculture, infrastructure, and digital governance — submitted to Think India&apos;s national convention and made available as open public research.
               </p>
             </div>
 
@@ -499,7 +500,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
               <div className={styles.initiativeNumber}>02</div>
               <h3 className={styles.initiativeCardTitle}>Rural Development Ideas</h3>
               <p className={styles.initiativeCardDesc}>
-                Collaborative programs connecting Bihar's engineers and students with nearby rural communities to co-design practical, technology-enabled solutions to ground-level challenges in Bihar and beyond.
+                Collaborative programs connecting Bihar&apos;s engineers and students with nearby rural communities to co-design practical, technology-enabled solutions to ground-level challenges in Bihar and beyond.
               </p>
             </div>
 
@@ -508,7 +509,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
               <div className={styles.initiativeNumber}>03</div>
               <h3 className={styles.initiativeCardTitle}>Cultural Awareness Campaigns</h3>
               <p className={styles.initiativeCardDesc}>
-                Celebrating India's pluralism — our cultural campaigns explore regional heritage, art forms, and histories, fostering a sense of unified national identity rooted in respect for every tradition.
+                Celebrating India&apos;s pluralism — our cultural campaigns explore regional heritage, art forms, and histories, fostering a sense of unified national identity rooted in respect for every tradition.
               </p>
             </div>
           </div>
