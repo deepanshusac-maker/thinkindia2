@@ -1,0 +1,196 @@
+.container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background-color: #08080f; /* Sleek dark background matching --color-bg */
+  font-family: var(--font-sans, system-ui, sans-serif);
+  overflow: hidden;
+}
+
+/* Background glows for premium look */
+.glowOrange {
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  width: clamp(250px, 35vw, 450px);
+  height: clamp(250px, 35vw, 450px);
+  background: radial-gradient(circle, rgba(249, 115, 22, 0.08) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.glowGreen {
+  position: absolute;
+  bottom: 15%;
+  right: 20%;
+  width: clamp(250px, 35vw, 450px);
+  height: clamp(250px, 35vw, 450px);
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: rgba(17, 17, 26, 0.65); /* Glassmorphic dark card surface */
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg, 14px);
+  padding: 3rem 2.5rem;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35);
+  z-index: 10;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.iconWrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(30, 58, 138, 0.15); /* Sleek Blue base */
+  border: 1px solid rgba(30, 58, 138, 0.3);
+  margin-bottom: 1.25rem;
+}
+
+.icon {
+  color: #3b82f6; /* Modern Blue accent */
+}
+
+.errorCode {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-saffron, #F97316);
+  margin-bottom: 0.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.5));
+  line-height: 1.6;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+  margin: 2rem 0;
+}
+
+.suggestions {
+  margin-bottom: 2.25rem;
+}
+
+.suggestTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.suggestList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.suggestList li {
+  position: relative;
+  font-size: 0.875rem;
+  color: var(--color-text-muted, rgba(255, 255, 255, 0.5));
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.suggestList li::before {
+  content: "•";
+  position: absolute;
+  left: 0.25rem;
+  color: var(--color-saffron, #F97316);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.actionRow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-md, 10px);
+  background: var(--gradient-accent, linear-gradient(135deg, #F97316 0%, #EA580C 100%));
+  color: #ffffff;
+  border: none;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.btnPrimary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(249, 115, 22, 0.25);
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-md, 10px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f0f0f0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.btnSecondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+@media (min-width: 480px) {
+  .actionRow {
+    flex-direction: row;
+  }
+  
+  .btnPrimary, .btnSecondary {
+    flex: 1;
+  }
+}

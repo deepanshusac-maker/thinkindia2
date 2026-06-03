@@ -137,12 +137,32 @@ export default async function HomePage() {
     isFallback = true;
   }
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Think India Bihar",
+    "url": "https://thinkindiabihar.org",
+    "description": "Think India Bihar is a forum of thinkers, innovators, and leaders committing to nation-building through policy research, legal awareness, and civic engagement.",
+    "sameAs": [
+      "https://www.instagram.com/thinkindia_bihar01",
+      "https://www.linkedin.com/company/think-india-bihar/"
+    ]
+  };
+
   return (
-    <HomeClient
-      institutes={institutes}
-      events={events}
-      gallery={gallery}
-      usingMockData={isFallback}
-    />
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+      <HomeClient
+        institutes={institutes}
+        events={events}
+        gallery={gallery}
+        usingMockData={isFallback}
+      />
+    </>
   );
 }
