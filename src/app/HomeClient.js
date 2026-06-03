@@ -262,94 +262,100 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
   useEffect(() => {
     if (!introCompleted) return; // Wait until intro loader is fully completed!
 
-    let gsapInstance;
-    let ScrollTriggerInstance;
+    let ctx; // gsap context — handles full cleanup on unmount
 
     async function initAnimations() {
       const gsapModule = await import("gsap");
       const scrollTriggerModule = await import("gsap/ScrollTrigger");
 
-      gsapInstance = gsapModule.gsap;
-      ScrollTriggerInstance = scrollTriggerModule.ScrollTrigger;
-      
+      const gsapInstance = gsapModule.gsap;
+      const ScrollTriggerInstance = scrollTriggerModule.ScrollTrigger;
+
       gsapInstance.registerPlugin(ScrollTriggerInstance);
 
-      // 1. Initial Hero Stagger Animation
-      const tl = gsapInstance.timeline();
+      // Scope all animations to the wrapper div to ensure safe cleanup
+      ctx = gsapInstance.context(() => {
+        // 1. Initial Hero Stagger Animation
+        const tl = gsapInstance.timeline();
 
-      tl.fromTo(
-        ".letter-item",
-        { opacity: 0, y: 40, rotateX: -40 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 0.7,
-          stagger: 0.04,
-          ease: "back.out(1.5)",
-        }
-      );
-
-      tl.fromTo(
-        subtitleRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
-        "-=0.4"
-      );
-
-      tl.fromTo(
-        ctaRef.current,
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
-        "-=0.3"
-      );
-
-
-      // 2. Scroll Trigger reveals for homepage sections
-      const sections = [
-        { el: aboutSectionRef.current, triggerEl: aboutSectionRef.current, className: ".pillar-card" },
-        { el: leadershipSectionRef.current, triggerEl: leadershipSectionRef.current, className: ".leader-card" },
-        { el: gridRef.current, triggerEl: gridRef.current, className: ".institute-card" },
-        { el: eventsSectionRef.current, triggerEl: eventsSectionRef.current, className: ".event-card" },
-        { el: gallerySectionRef.current, triggerEl: gallerySectionRef.current, className: ".gallery-card" }
-      ];
-
-      sections.forEach(({ el, triggerEl, className }) => {
-        if (!el) return;
-        gsapInstance.fromTo(
-          el,
-          { opacity: 0, y: 50 },
+        tl.fromTo(
+          ".letter-item",
+          { opacity: 0, y: 40, rotateX: -40 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.75,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: triggerEl,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-            onStart: () => {
-              // Stagger reveal the children cards inside the section
-              gsapInstance.fromTo(
-                className,
-                { opacity: 0, y: 30 },
-                { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out" }
-              );
-            }
+            rotateX: 0,
+            duration: 0.7,
+            stagger: 0.04,
+            ease: "back.out(1.5)",
           }
         );
-      });
+
+        if (subtitleRef.current) {
+          tl.fromTo(
+            subtitleRef.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
+            "-=0.4"
+          );
+        }
+
+        if (ctaRef.current) {
+          tl.fromTo(
+            ctaRef.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" },
+            "-=0.3"
+          );
+        }
+
+        // 2. Scroll Trigger reveals for homepage sections
+        const sections = [
+          { el: aboutSectionRef.current, triggerEl: aboutSectionRef.current, className: ".pillar-card" },
+          { el: leadershipSectionRef.current, triggerEl: leadershipSectionRef.current, className: ".leader-card" },
+          { el: gridRef.current, triggerEl: gridRef.current, className: ".institute-card" },
+          { el: eventsSectionRef.current, triggerEl: eventsSectionRef.current, className: ".event-card" },
+          { el: gallerySectionRef.current, triggerEl: gallerySectionRef.current, className: ".gallery-card" }
+        ];
+
+        sections.forEach(({ el, triggerEl, className }) => {
+          if (!el || !triggerEl) return;
+          gsapInstance.fromTo(
+            el,
+            { opacity: 0, y: 50 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.75,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: triggerEl,
+                start: "top 80%",
+                toggleActions: "play none none none",
+              },
+              onStart: () => {
+                // Stagger reveal the children cards inside the section
+                gsapInstance.fromTo(
+                  className,
+                  { opacity: 0, y: 30 },
+                  { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, ease: "power2.out" }
+                );
+              }
+            }
+          );
+        });
+      }); // end gsap.context()
     }
 
     initAnimations();
 
     return () => {
-      if (ScrollTriggerInstance) {
-        ScrollTriggerInstance.getAll().forEach((t) => t.kill());
-      }
+      // ctx.revert() kills all tweens, timelines, and ScrollTriggers created
+      // inside the context — safe even if initAnimations() hasn't resolved yet
+      if (ctx) ctx.revert();
     };
   }, [introCompleted]);
+
 
   return (
     <div className={styles.wrapper}>
@@ -553,49 +559,6 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
         </div>
       </section>
 
-      {/* State Leadership Section */}
-      <section id="leadership" ref={leadershipSectionRef} className={styles.leadershipSection} style={{ opacity: 1 }}>
-        <div className={styles.sectionHeader}>
-          <span className={styles.leadershipPill}>Bihar State Council</span>
-          <h2 className={styles.sectionTitle}>
-            State Leadership<span className={styles.sectionTitleDot}>.</span>
-          </h2>
-          <p className={styles.sectionSubtitle}>
-            The leadership team guiding the organizational vision, student collaborations, and policy initiatives across Bihar.
-          </p>
-        </div>
-
-        <div className={styles.leadershipGrid}>
-          {LEADERSHIP_MEMBERS.map((leader, index) => (
-            <div key={index} className={`${styles.leaderCard} leader-card ${styles[`leaderCard--${leader.color}`]}`}>
-              <div className={styles.leaderAvatarFrame}>
-                <div className={styles.leaderAvatarInner}>
-                  {leader.initials}
-                </div>
-              </div>
-              <div className={styles.leaderInfo}>
-                <h3 className={styles.leaderName}>{leader.name}</h3>
-                <div className={styles.leaderRoles}>
-                  {leader.roles.map((role, rIndex) => (
-                    <span key={rIndex} className={styles.leaderRoleBadge}>
-                      {role}
-                    </span>
-                  ))}
-                </div>
-                <p className={styles.leaderAffiliation}>
-                  <Building2 size={13} style={{ marginRight: "4px", verticalAlign: "top", marginTop: "2px" }} />
-                  <span>{leader.institute}</span>
-                </p>
-                <a href={`tel:${leader.phone}`} className={styles.leaderPhoneLink} aria-label={`Call ${leader.name}`}>
-                  <Phone size={13} style={{ marginRight: "6px", verticalAlign: "middle" }} />
-                  <span>+91 {leader.phone}</span>
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Institutes Grid Section */}
       <section id="institutes" className={styles.chaptersSection}>
         <div className={styles.sectionHeader}>
@@ -608,7 +571,11 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
         </div>
 
         <div ref={gridRef} className={styles.grid}>
-          {institutes.map((inst) => {
+          {[...institutes].sort((a, b) => {
+            if (a.name === "NIT Patna") return -1;
+            if (b.name === "NIT Patna") return 1;
+            return 0;
+          }).map((inst) => {
             const imageUrl = inst.image_url || INSTITUTE_IMAGES[inst.slug] || "/hero_bg_new.jpg";
             return (
               <Link key={inst.id} href={`/institute/${inst.slug}`}>
@@ -845,6 +812,43 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
           </div>
         )}
       </section>
+
+      {/* State Leadership Section */}
+      <section id="leadership" ref={leadershipSectionRef} className={styles.leadershipSection} style={{ opacity: 1 }}>
+        <div className={styles.sectionHeader}>
+          <h2 className={styles.sectionTitle}>
+            State Leadership<span className={styles.sectionTitleDot}>.</span>
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            The leadership team guiding organizational vision, student collaborations, and policy initiatives across Bihar.
+          </p>
+        </div>
+
+        <div className={styles.leadershipGrid}>
+          {LEADERSHIP_MEMBERS.map((leader, index) => (
+            <div key={index} className={`${styles.leaderCard} leader-card`}>
+              <div className={styles.leaderAvatarFrame}>
+                <span className={styles.leaderAvatarInner}>{leader.initials}</span>
+              </div>
+              <h3 className={styles.leaderName}>{leader.name}</h3>
+              <div className={styles.leaderRoles}>
+                {leader.roles.map((role, rIndex) => (
+                  <span key={rIndex} className={styles.leaderRoleBadge}>{role}</span>
+                ))}
+              </div>
+              <p className={styles.leaderAffiliation}>
+                <Building2 size={13} style={{ marginRight: "5px", flexShrink: 0, marginTop: "1px" }} />
+                <span>{leader.institute}</span>
+              </p>
+              <a href={`tel:${leader.phone}`} className={styles.leaderPhoneLink} aria-label={`Call ${leader.name}`}>
+                <Phone size={13} style={{ marginRight: "6px" }} />
+                <span>+91 {leader.phone}</span>
+              </a>
+            </div>
+          ))}
+        </div>
+      </section>
+
 
       {/* Footer */}
       <Footer />

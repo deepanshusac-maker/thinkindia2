@@ -1083,54 +1083,52 @@
   -webkit-text-stroke: 1.5px rgba(16, 185, 129, 0.08);
 }
 
-/* ---- Bihar State Council Leadership Section ---- */
+/* ============================================================
+   State Leadership Section — Matches site-wide design language
+   ============================================================ */
 .leadershipSection {
   padding: var(--section-py) var(--section-px);
-  background: radial-gradient(circle at bottom center, rgba(249, 115, 22, 0.02) 0%, #FFFFFF 100%);
-  border-top: 1px solid var(--color-border);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.leadershipPill {
-  display: inline-block;
-  background: rgba(30, 58, 138, 0.06);
-  border: 1px solid rgba(30, 58, 138, 0.12);
-  border-radius: 999px;
-  padding: 4px 14px;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--color-navy);
-  margin-bottom: 1rem;
+  background-color: var(--color-surface);
 }
 
 .leadershipGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 1rem 0;
 }
 
+@media (max-width: 900px) {
+  .leadershipGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .leadershipGrid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
+  }
+}
+
+/* Card — mirrors .card style from institutes section */
 .leaderCard {
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 2rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  padding: 2rem 1.25rem 1.5rem;
   transition: all 0.3s var(--ease-out);
-  position: relative;
+  box-shadow: var(--shadow-sm);
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.015);
 }
 
+/* Saffron top accent bar — same as .card::before */
 .leaderCard::before {
   content: "";
   position: absolute;
@@ -1138,123 +1136,115 @@
   left: 0;
   width: 100%;
   height: 4px;
-  background: var(--color-border);
-  transition: background 0.3s ease;
-}
-
-.leaderCard--saffron::before {
-  background: var(--color-saffron);
-}
-
-.leaderCard--navy::before {
-  background: var(--color-navy);
-}
-
-.leaderCard--green::before {
-  background: var(--color-green);
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 2;
 }
 
 .leaderCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
-  border-color: rgba(15, 23, 42, 0.15);
+  transform: translateY(-6px);
+  border-color: rgba(249, 115, 22, 0.25);
+  box-shadow: 0 16px 36px rgba(249, 115, 22, 0.06),
+              0 0 0 1px rgba(249, 115, 22, 0.15),
+              var(--shadow-lg);
 }
 
+.leaderCard:hover::before {
+  opacity: 1;
+}
+
+/* Avatar */
 .leaderAvatarFrame {
   width: 72px;
   height: 72px;
   border-radius: 50%;
   padding: 3px;
   margin-bottom: 1.25rem;
-  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(30, 58, 138, 0.15) 100%);
+  background: var(--gradient-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.3s ease;
 }
 
 .leaderCard:hover .leaderAvatarFrame {
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 .leaderAvatarInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
   border-radius: 50%;
   background: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--color-navy);
   font-family: var(--font-sans);
-  box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);
-  border: 1px solid rgba(15, 23, 42, 0.05);
+  letter-spacing: -0.01em;
 }
 
+/* Name */
 .leaderName {
-  font-size: 1.1875rem;
+  font-size: 1.0625rem;
   font-weight: 700;
-  color: #0F172A;
-  margin-bottom: 0.5rem;
+  color: var(--color-navy);
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
 }
 
+/* Role badges */
 .leaderRoles {
   display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
   margin-bottom: 0.75rem;
 }
 
 .leaderRoleBadge {
   display: inline-block;
-  background: rgba(249, 115, 22, 0.08);
-  color: var(--color-saffron-2);
-  border: 1px solid rgba(249, 115, 22, 0.18);
-  font-size: 0.725rem;
+  font-size: 0.625rem;
   font-weight: 700;
-  padding: 2px 10px;
-  border-radius: 99px;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 99px;
+  background: rgba(249, 115, 22, 0.07);
+  color: var(--color-saffron-2, #C2410C);
+  border: 1px solid rgba(249, 115, 22, 0.18);
 }
 
-.leaderCard--navy .leaderRoleBadge {
-  background: rgba(30, 58, 138, 0.06);
-  color: var(--color-navy);
-  border-color: rgba(30, 58, 138, 0.15);
-}
-
-.leaderCard--green .leaderRoleBadge {
-  background: rgba(16, 185, 129, 0.06);
-  color: #059669;
-  border-color: rgba(16, 185, 129, 0.15);
-}
-
+/* Institute affiliation */
 .leaderAffiliation {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   font-size: 0.8125rem;
   font-weight: 500;
   color: var(--color-text-muted);
-  margin-bottom: 1.25rem;
-  line-height: 1.4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 220px;
+  line-height: 1.45;
+  margin: 0 0 1rem;
   min-height: 2.25rem;
 }
 
+/* Phone CTA — matches cardFooter style */
 .leaderPhoneLink {
   display: inline-flex;
   align-items: center;
-  background: #FFFFFF;
-  border: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 7px 14px;
   border-radius: var(--radius-md);
-  padding: 6px 12px;
   font-size: 0.8125rem;
   font-weight: 600;
   color: var(--color-navy);
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  background: rgba(15, 23, 42, 0.03);
+  border: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: all 0.25s ease;
+  margin-top: auto;
 }
 
 .leaderPhoneLink:hover {
@@ -1262,7 +1252,5 @@
   color: #FFFFFF;
   border-color: var(--color-navy);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(30, 58, 138, 0.15);
+  box-shadow: 0 4px 12px rgba(30, 58, 138, 0.18);
 }
-
-

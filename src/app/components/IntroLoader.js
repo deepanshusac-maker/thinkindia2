@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import styles from "./IntroLoader.module.css";
 
@@ -11,45 +11,56 @@ export default function IntroLoader({ onComplete }) {
   const [visible, setVisible] = useState(false);
   const [shouldRender, setShouldRender] = useState(false);
 
+  // Stable callback ref to avoid re-triggering the effect
+  const onCompleteStable = useCallback(onComplete, []);
+
   useEffect(() => {
-    // 1. Session Memory Bypass: Play only on the first visit of the browser session
+    // Session Memory Bypass: Play only on the first visit of the browser session
     const hasPlayed = sessionStorage.getItem("thinkIndiaBiharIntroPlayed");
     if (hasPlayed === "true") {
-      onComplete(); // Skip directly to home client rendering
-    } else {
-      setShouldRender(true);
-      setVisible(true);
-      
-      // Prevent scrolling during loader animation
-      document.body.style.overflow = "hidden";
-
-      // 2. Set timeout to slide up and finish loader (2.8 seconds total duration)
-      const timer = setTimeout(() => {
-        setVisible(false);
-        sessionStorage.setItem("thinkIndiaBiharIntroPlayed", "true");
-        document.body.style.overflow = "";
-        
-        // Let slide-up transition finish before trigger callback
-        setTimeout(() => {
-          onComplete();
-        }, 800);
-      }, 2800);
-
-      return () => clearTimeout(timer);
+      onCompleteStable();
+      return;
     }
-  }, [onComplete]);
+
+    setShouldRender(true);
+    setVisible(true);
+
+    // Prevent scrolling during loader animation
+    document.body.style.overflow = "hidden";
+
+    // After 2.8s, begin exit animation
+    const timer = setTimeout(() => {
+      setVisible(false);
+      sessionStorage.setItem("thinkIndiaBiharIntroPlayed", "true");
+      document.body.style.overflow = "";
+    }, 2800);
+
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = "";
+    };
+  }, [onCompleteStable]);
+
+  // Called by AnimatePresence AFTER the exit animation fully completes
+  // and the DOM node has been safely removed. This prevents the
+  // "Cannot read properties of null (reading 'removeChild')" error
+  // that occurs when the parent re-renders while exit is still in progress.
+  const handleExitComplete = useCallback(() => {
+    setShouldRender(false);
+    onCompleteStable();
+  }, [onCompleteStable]);
 
   if (!shouldRender) return null;
 
   return (
-    <AnimatePresence>
+    <AnimatePresence onExitComplete={handleExitComplete}>
       {visible && (
         <motion.div
           className={styles.overlay}
           initial={{ y: 0 }}
-          exit={{ 
+          exit={{
             y: "-100vh",
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } 
+            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] }
           }}
         >
           {/* Ambient Saffron & Green Auroras */}
@@ -148,7 +159,7 @@ export default function IntroLoader({ onComplete }) {
             >
               सत्यमेव जयते
             </motion.div>
-            
+
             {/* Secondary branded label */}
             <motion.div
               className={styles.subText}
