@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { UserPlus, Trash2, Upload } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { sanitizeInput } from "@/lib/sanitize";
 import styles from "./dashboard.module.css";
 
 const supabase = createClient();
@@ -38,7 +39,8 @@ export default function TeamManager({ institute, addToast }) {
   }, [institute.id]);
 
   const handleAdd = async () => {
-    if (!name.trim()) {
+    const trimmedName = name.trim();
+    if (!trimmedName) {
       addToast("Name is required", "error");
       return;
     }
@@ -58,11 +60,14 @@ export default function TeamManager({ institute, addToast }) {
         if (uploadError) throw uploadError;
       }
 
+      const cleanName = sanitizeInput(trimmedName);
+      const cleanRole = sanitizeInput(role.trim());
+
       const { error: insertError } = await supabase.from("content").insert({
         institute_id: institute.id,
         type: "team",
-        title: name,
-        description: role,
+        title: cleanName,
+        description: cleanRole,
         image_url: photoPath || null,
       });
 

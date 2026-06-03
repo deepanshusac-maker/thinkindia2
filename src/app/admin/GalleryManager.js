@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Upload, Trash2, ImageIcon, Pencil, X } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { sanitizeInput } from "@/lib/sanitize";
 import styles from "./dashboard.module.css";
 
 const supabase = createClient();
@@ -115,11 +116,14 @@ export default function GalleryManager({ institute, addToast }) {
 
         if (uploadError) throw uploadError;
 
+        const cleanTitle = sanitizeInput(item.title.trim() || item.file.name);
+        const cleanDesc = sanitizeInput(item.description.trim());
+
         const { error: insertError } = await supabase.from("content").insert({
           institute_id: institute.id,
           type: "gallery",
-          title: item.title.trim() || item.file.name,
-          description: item.description.trim(),
+          title: cleanTitle,
+          description: cleanDesc,
           image_url: path,
         });
 
@@ -148,13 +152,16 @@ export default function GalleryManager({ institute, addToast }) {
       addToast("Image title is required", "error");
       return;
     }
+    const cleanEditTitle = sanitizeInput(editTitle.trim());
+    const cleanEditDesc = sanitizeInput(editDescription.trim());
+
     setSavingDetails(true);
     try {
       const { error } = await supabase
         .from("content")
         .update({
-          title: editTitle.trim(),
-          description: editDescription.trim(),
+          title: cleanEditTitle,
+          description: cleanEditDesc,
         })
         .eq("id", editingImage.id);
 
@@ -163,7 +170,7 @@ export default function GalleryManager({ institute, addToast }) {
       setImages((prev) =>
         prev.map((img) =>
           img.id === editingImage.id
-            ? { ...img, title: editTitle.trim(), description: editDescription.trim() }
+            ? { ...img, title: cleanEditTitle, description: cleanEditDesc }
             : img
         )
       );

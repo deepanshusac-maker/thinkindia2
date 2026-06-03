@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { CalendarPlus, Trash2, ImageIcon, X } from "lucide-react";
 import { createClient, getAssetUrl } from "@/lib/supabase/client";
+import { sanitizeInput } from "@/lib/sanitize";
 import styles from "./dashboard.module.css";
 
 const supabase = createClient();
@@ -90,7 +91,8 @@ export default function EventManager({ institute, addToast }) {
   };
 
   const handleAdd = async () => {
-    if (!title.trim()) {
+    const trimmedTitle = title.trim();
+    if (!trimmedTitle) {
       addToast("Event title is required", "error");
       return;
     }
@@ -116,16 +118,19 @@ export default function EventManager({ institute, addToast }) {
 
       const primaryImageUrl = uploadedPaths.length > 0 ? uploadedPaths[0] : null;
 
+      const cleanTitle = sanitizeInput(trimmedTitle);
+      const cleanDesc = sanitizeInput(description.trim());
+
       const { error } = await supabase.from("content").insert({
         institute_id: institute.id,
         type: "event",
-        title: title.trim(),
-        description: description.trim(),
+        title: cleanTitle,
+        description: cleanDesc,
         image_url: primaryImageUrl,
         metadata: { 
           date, 
           event_type: eventType,
-          description: description.trim(),
+          description: cleanDesc,
           images: uploadedPaths // Store array of all event image paths
         },
       });

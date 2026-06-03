@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Save } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { sanitizeInput } from "@/lib/sanitize";
 import styles from "./dashboard.module.css";
 
 const supabase = createClient();
@@ -18,15 +19,16 @@ export default function AboutEditor({ institute, addToast, onUpdate }) {
   const handleSave = async () => {
     setSaving(true);
     try {
+      const cleanText = sanitizeInput(text);
       const { error } = await supabase
         .from("institutes")
-        .update({ about_text: text })
+        .update({ about_text: cleanText })
         .eq("id", institute.id);
 
       if (error) throw error;
 
       // Sync parent state so switching tabs preserves the change
-      if (onUpdate) onUpdate(institute.id, text);
+      if (onUpdate) onUpdate(institute.id, cleanText);
       addToast("About section updated successfully", "success");
     } catch (err) {
       addToast(err.message || "Failed to update about section", "error");
