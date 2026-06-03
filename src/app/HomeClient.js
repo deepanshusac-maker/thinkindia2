@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock } from "lucide-react";
+import { ArrowRight, Building2, AlertTriangle, ExternalLink, Calendar, Image as ImageIcon, Shield, Users, HeartHandshake, X, MapPin, Clock, Phone } from "lucide-react";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import SkeletonImage from "@/app/components/SkeletonImage";
@@ -20,6 +20,41 @@ const INSTITUTE_IMAGES = {
   "iiit-bhagalpur": "/images/iiit-bhagalpur.jpeg",
   "nift-patna": "/images/nift-patna.jpeg",
 };
+
+const LEADERSHIP_MEMBERS = [
+  {
+    name: "Shubhranshu Kumar",
+    roles: ["State Convenor", "State Incharge"],
+    phone: "7762058576",
+    institute: "National Institute of Technology Patna",
+    initials: "SK",
+    color: "saffron"
+  },
+  {
+    name: "Harsh Raj",
+    roles: ["State Co-Convenor"],
+    phone: "9508394367",
+    institute: "National Institute of Technology Patna",
+    initials: "HR",
+    color: "navy"
+  },
+  {
+    name: "Hardik Ji",
+    roles: ["State Co-Convenor"],
+    phone: "8423648309",
+    institute: "Chanakya National Law University Patna",
+    initials: "H",
+    color: "green"
+  },
+  {
+    name: "Uday Ji",
+    roles: ["State Co-Convenor"],
+    phone: "9536689087",
+    institute: "Indian Institute of Technology Patna",
+    initials: "U",
+    color: "saffron"
+  }
+];
 
 function AnimatedNumber({ value, suffix = "", duration = 1800, trigger = false }) {
   const [count, setCount] = useState(0);
@@ -51,6 +86,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
   const subtitleRef = useRef(null);
   const ctaRef = useRef(null);
   const aboutSectionRef = useRef(null);
+  const leadershipSectionRef = useRef(null);
   const gridRef = useRef(null);
   const eventsSectionRef = useRef(null);
   const gallerySectionRef = useRef(null);
@@ -272,6 +308,7 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
       // 2. Scroll Trigger reveals for homepage sections
       const sections = [
         { el: aboutSectionRef.current, triggerEl: aboutSectionRef.current, className: ".pillar-card" },
+        { el: leadershipSectionRef.current, triggerEl: leadershipSectionRef.current, className: ".leader-card" },
         { el: gridRef.current, triggerEl: gridRef.current, className: ".institute-card" },
         { el: eventsSectionRef.current, triggerEl: eventsSectionRef.current, className: ".event-card" },
         { el: gallerySectionRef.current, triggerEl: gallerySectionRef.current, className: ".gallery-card" }
@@ -513,6 +550,49 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* State Leadership Section */}
+      <section id="leadership" ref={leadershipSectionRef} className={styles.leadershipSection} style={{ opacity: 1 }}>
+        <div className={styles.sectionHeader}>
+          <span className={styles.leadershipPill}>Bihar State Council</span>
+          <h2 className={styles.sectionTitle}>
+            State Leadership<span className={styles.sectionTitleDot}>.</span>
+          </h2>
+          <p className={styles.sectionSubtitle}>
+            The leadership team guiding the organizational vision, student collaborations, and policy initiatives across Bihar.
+          </p>
+        </div>
+
+        <div className={styles.leadershipGrid}>
+          {LEADERSHIP_MEMBERS.map((leader, index) => (
+            <div key={index} className={`${styles.leaderCard} leader-card ${styles[`leaderCard--${leader.color}`]}`}>
+              <div className={styles.leaderAvatarFrame}>
+                <div className={styles.leaderAvatarInner}>
+                  {leader.initials}
+                </div>
+              </div>
+              <div className={styles.leaderInfo}>
+                <h3 className={styles.leaderName}>{leader.name}</h3>
+                <div className={styles.leaderRoles}>
+                  {leader.roles.map((role, rIndex) => (
+                    <span key={rIndex} className={styles.leaderRoleBadge}>
+                      {role}
+                    </span>
+                  ))}
+                </div>
+                <p className={styles.leaderAffiliation}>
+                  <Building2 size={13} style={{ marginRight: "4px", verticalAlign: "top", marginTop: "2px" }} />
+                  <span>{leader.institute}</span>
+                </p>
+                <a href={`tel:${leader.phone}`} className={styles.leaderPhoneLink} aria-label={`Call ${leader.name}`}>
+                  <Phone size={13} style={{ marginRight: "6px", verticalAlign: "middle" }} />
+                  <span>+91 {leader.phone}</span>
+                </a>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

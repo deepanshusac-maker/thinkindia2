@@ -1083,3 +1083,186 @@
   -webkit-text-stroke: 1.5px rgba(16, 185, 129, 0.08);
 }
 
+/* ---- Bihar State Council Leadership Section ---- */
+.leadershipSection {
+  padding: var(--section-py) var(--section-px);
+  background: radial-gradient(circle at bottom center, rgba(249, 115, 22, 0.02) 0%, #FFFFFF 100%);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.leadershipPill {
+  display: inline-block;
+  background: rgba(30, 58, 138, 0.06);
+  border: 1px solid rgba(30, 58, 138, 0.12);
+  border-radius: 999px;
+  padding: 4px 14px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-navy);
+  margin-bottom: 1rem;
+}
+
+.leadershipGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 0;
+}
+
+.leaderCard {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s var(--ease-out);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.015);
+}
+
+.leaderCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--color-border);
+  transition: background 0.3s ease;
+}
+
+.leaderCard--saffron::before {
+  background: var(--color-saffron);
+}
+
+.leaderCard--navy::before {
+  background: var(--color-navy);
+}
+
+.leaderCard--green::before {
+  background: var(--color-green);
+}
+
+.leaderCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.15);
+}
+
+.leaderAvatarFrame {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  padding: 3px;
+  margin-bottom: 1.25rem;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.15) 0%, rgba(30, 58, 138, 0.15) 100%);
+  transition: transform 0.3s ease;
+}
+
+.leaderCard:hover .leaderAvatarFrame {
+  transform: scale(1.05);
+}
+
+.leaderAvatarInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  font-family: var(--font-sans);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.04);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.leaderName {
+  font-size: 1.1875rem;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 0.5rem;
+}
+
+.leaderRoles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.leaderRoleBadge {
+  display: inline-block;
+  background: rgba(249, 115, 22, 0.08);
+  color: var(--color-saffron-2);
+  border: 1px solid rgba(249, 115, 22, 0.18);
+  font-size: 0.725rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.leaderCard--navy .leaderRoleBadge {
+  background: rgba(30, 58, 138, 0.06);
+  color: var(--color-navy);
+  border-color: rgba(30, 58, 138, 0.15);
+}
+
+.leaderCard--green .leaderRoleBadge {
+  background: rgba(16, 185, 129, 0.06);
+  color: #059669;
+  border-color: rgba(16, 185, 129, 0.15);
+}
+
+.leaderAffiliation {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  margin-bottom: 1.25rem;
+  line-height: 1.4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 220px;
+  min-height: 2.25rem;
+}
+
+.leaderPhoneLink {
+  display: inline-flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.leaderPhoneLink:hover {
+  background: var(--color-navy);
+  color: #FFFFFF;
+  border-color: var(--color-navy);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(30, 58, 138, 0.15);
+}
+
+
