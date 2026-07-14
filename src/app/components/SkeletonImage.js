@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 /**
  * A wrapper around the standard HTML img tag that displays a pulsing skeleton loader
@@ -10,12 +11,18 @@ export default function SkeletonImage({ src, alt, className = "", style = {}, fe
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
+  const imgRef = useRef(null);
+
   useEffect(() => {
     if (!src) {
       setLoading(false);
       setError(true);
     } else {
-      setLoading(true);
+      if (imgRef.current && imgRef.current.complete) {
+        setLoading(false);
+      } else {
+        setLoading(true);
+      }
       setError(false);
     }
   }, [src]);
@@ -71,11 +78,12 @@ export default function SkeletonImage({ src, alt, className = "", style = {}, fe
         </div>
       ) : (
         src && (
-          <img
+          <Image
+            ref={imgRef}
             src={src}
             alt={alt || "Think India Asset"}
-            loading={priority || fetchPriority === "high" ? "eager" : "lazy"}
-            fetchPriority={priority ? "high" : fetchPriority}
+            fill
+            priority={priority || fetchPriority === "high"}
             sizes={props.sizes || "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
             onLoad={() => setLoading(false)}
             onError={() => {
@@ -83,13 +91,10 @@ export default function SkeletonImage({ src, alt, className = "", style = {}, fe
               setError(true);
             }}
             style={{
-              width: "100%",
-              height: "100%",
               objectFit: style.objectFit || "cover",
               opacity: loading ? 0 : 1,
               transition: "opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-              borderRadius: "inherit",
-              display: "block",
+              borderRadius: style.borderRadius || "inherit",
             }}
             {...props}
           />
