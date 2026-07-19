@@ -403,3 +403,29 @@
   color: var(--color-text-muted);
   white-space: pre-line;
 }
+
+/* ---- Event Card Action Row (countdown + share) ---- */
+.cardActionRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
+}
+
+.cardActionLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Share button inside the modal footer */
+.modalShareRow {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+  margin-top: 1rem;
+}

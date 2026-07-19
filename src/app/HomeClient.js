@@ -11,6 +11,8 @@ import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./HomeClient.module.css";
 import { motion } from "framer-motion";
 import IntroLoader from "@/app/components/IntroLoader";
+import EventCountdown from "@/app/components/EventCountdown";
+import ShareButton from "@/app/components/ShareButton";
 
 const INSTITUTE_IMAGES = {
   "nit-patna": "/images/nit-patna.jpeg",
@@ -230,13 +232,25 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
                 : evt.metadata.description}
             </p>
           )}
-          <button
-            onClick={() => openEventModal(evt)}
-            className={styles.knowMoreBtn}
-            aria-label={`Know more about ${evt.title}`}
-          >
-            Know More <ArrowRight size={14} />
-          </button>
+          <div className={styles.cardActionRow}>
+            <div className={styles.cardActionLeft}>
+              {!isPast && (
+                <EventCountdown dateStr={evt.metadata?.date} />
+              )}
+              <button
+                onClick={() => openEventModal(evt)}
+                className={styles.knowMoreBtn}
+                aria-label={`Know more about ${evt.title}`}
+              >
+                Know More <ArrowRight size={14} />
+              </button>
+            </div>
+            <ShareButton
+              title={evt.title}
+              text={evt.metadata?.description || `Check out this event by Think India Bihar: ${evt.title}`}
+              variant="full"
+            />
+          </div>
         </div>
       </div>
     );
@@ -757,6 +771,14 @@ export default function HomeClient({ institutes, events, gallery, usingMockData 
                 <div className={styles.modalDescription}>
                   <h3>About this Event</h3>
                   <p>{selectedEvent.metadata?.description || "No description provided for this event."}</p>
+                </div>
+
+                <div className={styles.modalShareRow}>
+                  <ShareButton
+                    title={selectedEvent.title}
+                    text={selectedEvent.metadata?.description || `Check out this event: ${selectedEvent.title}`}
+                    variant="full"
+                  />
                 </div>
               </div>
             </div>

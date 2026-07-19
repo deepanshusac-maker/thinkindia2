@@ -1,0 +1,87 @@
+/* ============================================================
+   EventCountdown.module.css
+   Compact live D:H:M:S countdown pill shown on upcoming events
+   ============================================================ */
+
+.countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.08) 0%, rgba(249, 115, 22, 0.04) 100%);
+  border: 1px solid rgba(249, 115, 22, 0.18);
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem 0.35rem 0.75rem;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+.countdownLabel {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-saffron);
+  white-space: nowrap;
+}
+
+.digitRow {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.digitGroup {
+  display: flex;
+  align-items: baseline;
+  gap: 0.1rem;
+}
+
+.digitValue {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--color-navy);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+  min-width: 1.4ch;
+  text-align: center;
+}
+
+.digitLabel {
+  font-size: 0.625rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: lowercase;
+}
+
+.separator {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-saffron);
+  opacity: 0.5;
+  margin: 0 0.05rem;
+  line-height: 1;
+  padding-bottom: 0.15rem;
+}
+
+/* Pulse animation on seconds digit to show it's live */
+@keyframes countdownPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.digitGroup:last-child .digitValue {
+  animation: countdownPulse 1s ease-in-out infinite;
+}
+
+/* Compact variant inside modal header */
+.compact {
+  padding: 0.25rem 0.7rem 0.25rem 0.6rem;
+}
+
+.compact .digitValue {
+  font-size: 0.8125rem;
+}
+
+.compact .countdownLabel {
+  font-size: 0.625rem;
+}

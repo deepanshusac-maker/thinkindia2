@@ -8,6 +8,8 @@ import Footer from "@/app/components/Footer";
 import SkeletonImage from "@/app/components/SkeletonImage";
 import { getAssetUrl } from "@/lib/supabase/client";
 import styles from "./InstituteClient.module.css";
+import EventCountdown from "@/app/components/EventCountdown";
+import ShareButton from "@/app/components/ShareButton";
 const INSTITUTE_IMAGES = {
   "nit-patna": "/images/nit-patna.jpeg",
   "iit-patna": "/images/iit-patna.jpeg",
@@ -171,13 +173,25 @@ export default function InstituteClient({ institute, team, events, gallery, usin
                 : evt.metadata.description}
             </p>
           )}
-          <button
-            onClick={() => openEventModal(evt)}
-            className={styles.knowMoreBtn}
-            aria-label={`Know more about ${evt.title}`}
-          >
-            Know More <ArrowRight size={14} />
-          </button>
+          <div className={styles.cardActionRow}>
+            <div className={styles.cardActionLeft}>
+              {!isPast && (
+                <EventCountdown dateStr={evt.metadata?.date} />
+              )}
+              <button
+                onClick={() => openEventModal(evt)}
+                className={styles.knowMoreBtn}
+                aria-label={`Know more about ${evt.title}`}
+              >
+                Know More <ArrowRight size={14} />
+              </button>
+            </div>
+            <ShareButton
+              title={evt.title}
+              text={evt.metadata?.description || `Check out this event by Think India Bihar: ${evt.title}`}
+              variant="full"
+            />
+          </div>
         </div>
       </div>
     );
@@ -505,6 +519,14 @@ export default function InstituteClient({ institute, team, events, gallery, usin
                 <div className={styles.modalDescription}>
                   <h3>About this Event</h3>
                   <p>{selectedEvent.metadata?.description || "No description provided for this event."}</p>
+                </div>
+
+                <div className={styles.modalShareRow}>
+                  <ShareButton
+                    title={selectedEvent.title}
+                    text={selectedEvent.metadata?.description || `Check out this event: ${selectedEvent.title}`}
+                    variant="full"
+                  />
                 </div>
               </div>
             </div>

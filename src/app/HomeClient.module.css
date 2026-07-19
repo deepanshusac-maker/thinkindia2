@@ -582,6 +582,9 @@
 .metaIconGreen { composes: metaIconGreen from './components/SharedEventStyles.module.css'; }
 .modalDivider { composes: modalDivider from './components/SharedEventStyles.module.css'; }
 .modalDescription { composes: modalDescription from './components/SharedEventStyles.module.css'; }
+.cardActionRow { composes: cardActionRow from './components/SharedEventStyles.module.css'; }
+.cardActionLeft { composes: cardActionLeft from './components/SharedEventStyles.module.css'; }
+.modalShareRow { composes: modalShareRow from './components/SharedEventStyles.module.css'; }
 
 .galleryGrid {
   composes: masonry-grid from global;
