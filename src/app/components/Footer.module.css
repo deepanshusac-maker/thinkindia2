@@ -113,10 +113,10 @@
 
 .footerColTitle {
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #F8FAFC; /* Off-white for headers */
+  color: #ffffff;
   margin-bottom: 0.25rem;
   position: relative;
   display: inline-block;

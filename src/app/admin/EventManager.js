@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CalendarPlus, Trash2, ImageIcon, X } from "lucide-react";
+import { CalendarPlus, Trash2, ImageIcon, X, MapPin } from "lucide-react";
 import { createClient, getAssetUrl } from "@/lib/supabase/client";
 import { sanitizeInput } from "@/lib/sanitize";
 import styles from "./dashboard.module.css";
@@ -16,6 +16,7 @@ export default function EventManager({ institute, addToast }) {
   const [date, setDate] = useState("");
   const [eventType, setEventType] = useState("upcoming");
   const [description, setDescription] = useState("");
+  const [venue, setVenue] = useState("");
   
   // Multiple images state
   const [imageFiles, setImageFiles] = useState([]);
@@ -120,6 +121,7 @@ export default function EventManager({ institute, addToast }) {
 
       const cleanTitle = sanitizeInput(trimmedTitle);
       const cleanDesc = sanitizeInput(description.trim());
+      const cleanVenue = sanitizeInput(venue.trim());
 
       const { error } = await supabase.from("content").insert({
         institute_id: institute.id,
@@ -131,6 +133,7 @@ export default function EventManager({ institute, addToast }) {
           date, 
           event_type: eventType,
           description: cleanDesc,
+          venue: cleanVenue || null,
           images: uploadedPaths // Store array of all event image paths
         },
       });
@@ -142,6 +145,7 @@ export default function EventManager({ institute, addToast }) {
       setDate("");
       setEventType("upcoming");
       setDescription("");
+      setVenue("");
       imageFiles.forEach((item) => URL.revokeObjectURL(item.previewUrl));
       setImageFiles([]);
       addToast("Event added successfully", "success");
@@ -230,6 +234,33 @@ export default function EventManager({ institute, addToast }) {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Event details or summary"
           />
+        </div>
+      </div>
+
+      <div className={styles.formRow} style={{ marginTop: "1rem" }}>
+        <div className={styles.field} style={{ gridColumn: "span 3" }}>
+          <label className={styles.label}>Venue / Location</label>
+          <div style={{ position: "relative" }}>
+            <MapPin
+              size={15}
+              style={{
+                position: "absolute",
+                left: "0.75rem",
+                top: "50%",
+                transform: "translateY(-50%)",
+                color: "rgba(255,255,255,0.35)",
+                pointerEvents: "none",
+              }}
+            />
+            <input
+              className={styles.input}
+              type="text"
+              value={venue}
+              onChange={(e) => setVenue(e.target.value)}
+              placeholder="e.g. Seminar Hall, NIT Patna"
+              style={{ paddingLeft: "2.25rem" }}
+            />
+          </div>
         </div>
       </div>
 
@@ -352,6 +383,12 @@ export default function EventManager({ institute, addToast }) {
                   {event.description && (
                     <p style={{ margin: "0.25rem 0 0", fontSize: "0.8rem", color: "rgba(255,255,255,0.4)", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
                       {event.description}
+                    </p>
+                  )}
+                  {meta.venue && (
+                    <p style={{ margin: "0.25rem 0 0", fontSize: "0.75rem", color: "rgba(255,255,255,0.3)", display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                      <MapPin size={11} style={{ flexShrink: 0 }} />
+                      {meta.venue}
                     </p>
                   )}
                 </div>
